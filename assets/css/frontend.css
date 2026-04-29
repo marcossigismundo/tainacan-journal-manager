@@ -1,0 +1,333 @@
+/* ===================================================================
+   Tainacan Journal Manager — Frontend Styles
+   =================================================================== */
+
+:root {
+    --tjm-primary: #1a4480;
+    --tjm-primary-light: #2e5ea0;
+    --tjm-success: #059669;
+    --tjm-danger: #dc2626;
+    --tjm-warning: #d97706;
+    --tjm-bg: #f8f9fa;
+    --tjm-card-bg: #ffffff;
+    --tjm-text: #1e293b;
+    --tjm-text-light: #64748b;
+    --tjm-border: #e2e8f0;
+    --tjm-radius: 8px;
+    --tjm-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+/* Wrappers */
+.tjm-portal,
+.tjm-login-container,
+.tjm-indicators,
+.tjm-journal-public {
+    width: 80%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 24px 16px;
+    color: var(--tjm-text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+@media (max-width: 1024px) {
+    .tjm-portal, .tjm-login-container, .tjm-indicators, .tjm-journal-public {
+        width: 95%;
+    }
+}
+
+@media (max-width: 600px) {
+    .tjm-portal, .tjm-login-container, .tjm-indicators, .tjm-journal-public {
+        width: 100%;
+    }
+}
+
+/* Headers */
+.tjm-portal-header,
+.tjm-indicators-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid var(--tjm-border);
+}
+
+.tjm-portal-header h2,
+.tjm-indicators-header h2,
+.tjm-journal-header h1 {
+    margin: 0;
+    color: var(--tjm-primary);
+}
+
+/* Buttons */
+.tjm-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 20px;
+    border: 2px solid transparent;
+    border-radius: var(--tjm-radius);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+    line-height: 1;
+}
+
+.tjm-btn--primary {
+    background: var(--tjm-primary);
+    color: #fff;
+    border-color: var(--tjm-primary);
+}
+
+.tjm-btn--primary:hover {
+    background: var(--tjm-primary-light);
+    color: #fff;
+}
+
+.tjm-btn--secondary {
+    background: transparent;
+    color: var(--tjm-primary);
+    border-color: var(--tjm-primary);
+}
+
+.tjm-btn--secondary:hover {
+    background: var(--tjm-primary);
+    color: #fff;
+}
+
+.tjm-btn--sm {
+    padding: 6px 12px;
+    font-size: 13px;
+}
+
+/* Cards grid */
+.tjm-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.tjm-card {
+    background: var(--tjm-card-bg);
+    border: 1px solid var(--tjm-border);
+    border-radius: var(--tjm-radius);
+    padding: 20px;
+    box-shadow: var(--tjm-shadow);
+    text-align: center;
+}
+
+.tjm-card--success { border-top: 3px solid var(--tjm-success); }
+.tjm-card--primary { border-top: 3px solid var(--tjm-primary); }
+.tjm-card--danger  { border-top: 3px solid var(--tjm-danger); }
+.tjm-card--warning { border-top: 3px solid var(--tjm-warning); }
+
+.tjm-card-number {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--tjm-text);
+    line-height: 1;
+}
+
+.tjm-card-label {
+    font-size: 13px;
+    color: var(--tjm-text-light);
+    margin-top: 8px;
+}
+
+/* Tables */
+.tjm-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--tjm-card-bg);
+    border: 1px solid var(--tjm-border);
+    border-radius: var(--tjm-radius);
+    overflow: hidden;
+    box-shadow: var(--tjm-shadow);
+}
+
+.tjm-table thead th {
+    background: #f8fafc;
+    padding: 12px 16px;
+    text-align: left;
+    font-weight: 600;
+    color: var(--tjm-text-light);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid var(--tjm-border);
+}
+
+.tjm-table tbody td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--tjm-border);
+}
+
+.tjm-table tbody tr:last-child td { border-bottom: none; }
+.tjm-table tbody tr:hover { background: #f8fafc; }
+
+/* Status badges */
+.tjm-status-badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    background: #e8f4fd;
+    color: var(--tjm-primary);
+}
+
+.tjm-status-published { background: #ecfdf5; color: #065f46; }
+.tjm-status-rejected  { background: #fef2f2; color: #991b1b; }
+.tjm-status-draft     { background: #f1f5f9; color: #334155; }
+.tjm-status-submitted, .tjm-status-triage, .tjm-status-review {
+    background: #e8f4fd; color: var(--tjm-primary);
+}
+.tjm-status-revision  { background: #fffbeb; color: #92400e; }
+
+/* Forms */
+.tjm-form { max-width: 100%; }
+
+.tjm-field {
+    margin-bottom: 16px;
+}
+
+.tjm-field label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--tjm-text);
+    margin-bottom: 6px;
+}
+
+.tjm-field input[type="text"],
+.tjm-field input[type="email"],
+.tjm-field input[type="password"],
+.tjm-field textarea,
+.tjm-field select {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid var(--tjm-border);
+    border-radius: 6px;
+    font-size: 14px;
+    box-sizing: border-box;
+    transition: border-color 0.2s;
+}
+
+.tjm-field input:focus, .tjm-field textarea:focus, .tjm-field select:focus {
+    outline: none;
+    border-color: var(--tjm-primary);
+    box-shadow: 0 0 0 3px rgba(26, 68, 128, 0.1);
+}
+
+/* Login card */
+.tjm-login-card {
+    max-width: 400px;
+    margin: 40px auto;
+    padding: 32px;
+    background: var(--tjm-card-bg);
+    border: 1px solid var(--tjm-border);
+    border-radius: var(--tjm-radius);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.tjm-login-card h1 {
+    margin: 0 0 8px;
+    color: var(--tjm-primary);
+    font-size: 24px;
+    text-align: center;
+}
+
+.tjm-login-subtitle {
+    text-align: center;
+    color: var(--tjm-text-light);
+    font-size: 14px;
+    margin: 0 0 24px;
+}
+
+.tjm-login-card .tjm-btn {
+    width: 100%;
+    justify-content: center;
+}
+
+.tjm-login-footer {
+    text-align: center;
+    margin: 16px 0 0;
+    font-size: 13px;
+}
+
+.tjm-login-footer a {
+    color: var(--tjm-text-light);
+    text-decoration: none;
+}
+
+/* Notices */
+.tjm-notice {
+    padding: 14px 18px;
+    border-radius: var(--tjm-radius);
+    border-left: 4px solid var(--tjm-primary);
+    background: #e8f4fd;
+    color: var(--tjm-primary);
+    margin: 16px 0;
+}
+
+.tjm-notice--error {
+    background: #fef2f2;
+    border-left-color: var(--tjm-danger);
+    color: #991b1b;
+}
+
+.tjm-empty-state {
+    text-align: center;
+    padding: 48px 24px;
+    color: var(--tjm-text-light);
+    background: var(--tjm-card-bg);
+    border: 1px dashed var(--tjm-border);
+    border-radius: var(--tjm-radius);
+}
+
+.tjm-message {
+    margin: 12px 0 0;
+    padding: 10px;
+    border-radius: 6px;
+    font-size: 13px;
+    text-align: center;
+    display: none;
+}
+
+.tjm-message.tjm-message--error {
+    display: block;
+    background: #fef2f2;
+    color: #991b1b;
+}
+
+.tjm-message.tjm-message--success {
+    display: block;
+    background: #ecfdf5;
+    color: #065f46;
+}
+
+.tjm-text-muted {
+    color: var(--tjm-text-light);
+    font-style: italic;
+}
+
+.tjm-section {
+    margin-top: 32px;
+    padding: 20px;
+    background: var(--tjm-card-bg);
+    border: 1px solid var(--tjm-border);
+    border-radius: var(--tjm-radius);
+}
+
+.tjm-section h3 {
+    margin: 0 0 12px;
+    color: var(--tjm-primary);
+}

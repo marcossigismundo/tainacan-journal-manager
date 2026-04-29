@@ -1,0 +1,9 @@
+/* Tainacan Journal Manager — Admin Styles */
+
+.tjm-admin-page {
+    max-width: 1200px;
+}
+
+.tjm-admin-page h1 {
+    color: #1a4480;
+}
