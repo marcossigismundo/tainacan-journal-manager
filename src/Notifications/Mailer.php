@@ -85,6 +85,8 @@ final class Mailer
             'submission-published'    => sprintf('%s %s', $prefix, __('Your article has been published', 'tainacan-journal-manager')),
             'editor-new-submission'   => sprintf('%s %s', $prefix, __('New submission received', 'tainacan-journal-manager')),
             'editor-review-received'  => sprintf('%s %s', $prefix, __('Review received', 'tainacan-journal-manager')),
+            'copyediting-version'     => sprintf('%s %s', $prefix, __('Copyediting update', 'tainacan-journal-manager')),
+            'proof-request'           => sprintf('%s %s', $prefix, __('Please review the proof', 'tainacan-journal-manager')),
             default                   => sprintf('%s %s', $prefix, __('Notification', 'tainacan-journal-manager')),
         };
     }

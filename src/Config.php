@@ -96,6 +96,34 @@ final class Config
     public const PAGE_REVIEWER    = 'reviewer-dashboard';
     public const PAGE_EDITORIAL   = 'editorial-dashboard';
     public const PAGE_INDICATORS  = 'journal-indicators';
+    public const PAGE_ROLES       = 'journal-roles';
+    public const PAGE_COPYEDITING = 'copyediting-dashboard';
+    public const PAGE_PRODUCTION  = 'production-dashboard';
+
+    // ── Upload constraints ──────────────────────────────────────────
+    public const MAX_UPLOAD_SIZE      = 20 * 1024 * 1024; // 20 MB
+    public const ALLOWED_MIME_TYPES   = [
+        'pdf'  => 'application/pdf',
+        'doc'  => 'application/msword',
+        'docx' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        'odt'  => 'application/vnd.oasis.opendocument.text',
+        'rtf'  => 'application/rtf',
+        'tex'  => 'application/x-tex',
+    ];
+
+    // ── Wizard / declarations meta keys (suffix; full key uses META_PREFIX) ──
+    public const META_MANUSCRIPT_FILE_ID    = 'manuscript_file_id';
+    public const META_MANUSCRIPT_HISTORY    = 'manuscript_history';
+    public const META_SUPPLEMENTARY_FILES   = 'supplementary_files';
+    public const META_DECLARATION_ORIGINAL  = 'decl_original';
+    public const META_DECLARATION_COI       = 'decl_coi';
+    public const META_DECLARATION_COPYRIGHT = 'decl_copyright';
+    public const META_DECLARATION_ETHICS    = 'decl_ethics';
+    public const META_KEYWORDS              = 'keywords';
+    public const META_LANGUAGE              = 'language';
+    public const META_SECTION_TERM          = 'section_term';
+    public const META_REFERENCES            = 'references';
+    public const META_FUNDING               = 'funding';
 
     // ── Helpers ─────────────────────────────────────────────────────
 

@@ -24,6 +24,18 @@ final class AuthGuard
             PluginRole::EDITOR_SECTION,
             PluginRole::ADMIN_INSTITUTIONAL,
         ],
+        Config::PAGE_ROLES     => [
+            PluginRole::JOURNAL_MANAGER,
+            PluginRole::ADMIN_INSTITUTIONAL,
+        ],
+        Config::PAGE_COPYEDITING => [
+            PluginRole::COPYEDITOR,
+            PluginRole::LAYOUT_EDITOR,
+            PluginRole::JOURNAL_MANAGER,
+            PluginRole::EDITOR_CHIEF,
+            PluginRole::EDITOR_SECTION,
+            PluginRole::ADMIN_INSTITUTIONAL,
+        ],
     ];
 
     public function register(): void

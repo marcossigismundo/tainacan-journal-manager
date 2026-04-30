@@ -4,7 +4,7 @@
  * Plugin Name: Tainacan Journal Manager
  * Plugin URI:  https://github.com/marcossigismundo/tainacan-journal-manager
  * Description: Transforms a Tainacan-powered WordPress installation into a complete electronic scientific journal management platform with editorial workflow inspired by OJS (Open Journal Systems).
- * Version:     0.1.0
+ * Version:     0.5.0
  * Author:      Marcos Sigismundo
  * Author URI:  https://github.com/marcossigismundo
  * License:     GPL-2.0-or-later
@@ -21,7 +21,7 @@ if (! defined('ABSPATH')) {
 }
 
 // ── Plugin constants ─────────────────────────────────────────────────
-define('TJM_VERSION',  '0.1.0');
+define('TJM_VERSION',  '0.5.0');
 define('TJM_PATH',     plugin_dir_path(__FILE__));
 define('TJM_URL',      plugin_dir_url(__FILE__));
 define('TJM_BASENAME', plugin_basename(__FILE__));

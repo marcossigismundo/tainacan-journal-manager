@@ -78,7 +78,11 @@ final class ReviewService
     /**
      * Submit a completed review.
      *
-     * @param array{author_comments: string, editor_comments?: string, recommendation: string} $data
+     * Required: author_comments + recommendation. Editor_comments and per-section
+     * notes (originality, methodology, etc.) are optional and validated against
+     * the journal's configured form sections.
+     *
+     * @param array<string, mixed> $data
      */
     public static function submit_review(int $review_id, int $user_id, array $data): bool
     {
@@ -87,9 +91,35 @@ final class ReviewService
             return false;
         }
 
-        update_post_meta($review_id, Config::META_PREFIX . 'author_comments', sanitize_textarea_field((string) ($data['author_comments'] ?? '')));
+        $author_comments = sanitize_textarea_field((string) ($data['author_comments'] ?? ''));
+        $recommendation  = sanitize_text_field((string) ($data['recommendation'] ?? ''));
+
+        $allowed_recs = [
+            Config::RECOMMEND_ACCEPT,
+            Config::RECOMMEND_REVISIONS_MINOR,
+            Config::RECOMMEND_REVISIONS_MAJOR,
+            Config::RECOMMEND_RESUBMIT_REVIEW,
+            Config::RECOMMEND_REJECT,
+        ];
+
+        if ($author_comments === '' || ! in_array($recommendation, $allowed_recs, true)) {
+            return false;
+        }
+
+        update_post_meta($review_id, Config::META_PREFIX . 'author_comments', $author_comments);
         update_post_meta($review_id, Config::META_PREFIX . 'editor_comments', sanitize_textarea_field((string) ($data['editor_comments'] ?? '')));
-        update_post_meta($review_id, Config::META_PREFIX . 'recommendation', sanitize_text_field((string) ($data['recommendation'] ?? '')));
+        update_post_meta($review_id, Config::META_PREFIX . 'recommendation', $recommendation);
+
+        // Per-section comments (only for sections the journal enabled)
+        $submission_id = (int) get_post_meta($review_id, Config::META_PREFIX . 'submission_id', true);
+        $sections = ReviewFormConfig::sections_for_submission($submission_id);
+        $section_data = [];
+        foreach ($sections as $section) {
+            $val = isset($data['sections'][$section]) ? sanitize_textarea_field((string) $data['sections'][$section]) : '';
+            $section_data[$section] = $val;
+        }
+        update_post_meta($review_id, Config::META_PREFIX . 'section_comments', $section_data);
+
         update_post_meta($review_id, Config::META_PREFIX . 'review_status', Config::REVIEW_SUBMITTED);
         update_post_meta($review_id, Config::META_PREFIX . 'submitted_at', current_time('mysql'));
 

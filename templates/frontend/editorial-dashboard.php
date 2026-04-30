@@ -1,5 +1,8 @@
 <?php
-/** @var array<string,int> $stats */
+/**
+ * @var array<string,int>     $stats
+ * @var \WP_Post[]            $recent
+ */
 if (! defined('ABSPATH')) exit;
 
 use TainacanJournalManager\Config;
@@ -22,6 +25,39 @@ use TainacanJournalManager\Config;
 
     <div class="tjm-section">
         <h3><?php esc_html_e('Recent Submissions', 'tainacan-journal-manager'); ?></h3>
-        <p class="tjm-text-muted"><?php esc_html_e('Submission management features will appear here in the next development phase.', 'tainacan-journal-manager'); ?></p>
+
+        <?php if (empty($recent)) : ?>
+            <p class="tjm-text-muted"><?php esc_html_e('No submissions yet.', 'tainacan-journal-manager'); ?></p>
+        <?php else : ?>
+            <table class="tjm-table">
+                <thead>
+                    <tr>
+                        <th><?php esc_html_e('Title', 'tainacan-journal-manager'); ?></th>
+                        <th><?php esc_html_e('Author', 'tainacan-journal-manager'); ?></th>
+                        <th><?php esc_html_e('Journal', 'tainacan-journal-manager'); ?></th>
+                        <th><?php esc_html_e('Status', 'tainacan-journal-manager'); ?></th>
+                        <th><?php esc_html_e('Updated', 'tainacan-journal-manager'); ?></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($recent as $sub) :
+                        $status     = (string) get_post_meta($sub->ID, Config::META_PREFIX . 'status', true) ?: Config::STATUS_DRAFT;
+                        $journal_id = (int) get_post_meta($sub->ID, Config::META_PREFIX . 'journal_id', true);
+                        $journal    = $journal_id ? get_the_title($journal_id) : '—';
+                        $author     = get_userdata((int) $sub->post_author);
+                    ?>
+                    <tr>
+                        <td><strong><?php echo esc_html($sub->post_title); ?></strong></td>
+                        <td><?php echo esc_html($author ? ($author->display_name ?: $author->user_login) : '—'); ?></td>
+                        <td><?php echo esc_html((string) $journal); ?></td>
+                        <td><span class="tjm-status-badge tjm-status-<?php echo esc_attr($status); ?>"><?php echo esc_html(Config::get_status_label($status)); ?></span></td>
+                        <td><?php echo esc_html(get_the_modified_date('d/m/Y', $sub)); ?></td>
+                        <td><a href="?submission=<?php echo (int) $sub->ID; ?>" class="tjm-btn tjm-btn--secondary tjm-btn--sm"><?php esc_html_e('Manage', 'tainacan-journal-manager'); ?></a></td>
+                    </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        <?php endif; ?>
     </div>
 </div>

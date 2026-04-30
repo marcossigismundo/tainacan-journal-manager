@@ -9,9 +9,14 @@ Inspirado arquiteturalmente no plugin **Pontos de Memoria** (mesma instalacao,
 em `wp-content/plugins/pontos-de-memoria/`), mas com modelagem propria adequada
 ao dominio editorial cientifico.
 
-**Status**: 0.1.0 — MVP foundation. Arquitetura, CPTs, roles multi-papel,
-workflow engine, mailer e shortcodes esqueleto prontos. Integracoes
-ORCID/DOI/OAI-PMH/Crossref/DOAJ sao stubs documentados.
+**Status**: 0.5.0 — Phases 4 e 5 entregues. Indicadores com Chart.js
+(StatsService cacheado, 6 cards, 5 graficos, export CSV, print/PDF
+do navegador). Interoperabilidade: ORCID Mod-11-2 real + OAuth 3-legged,
+DOI helpers + Crossref deposit XML 5.3.1 e API submit, DOAJ Articles
+JSON + API submit, OAI-PMH 2.0 endpoint completo (Identify,
+ListMetadataFormats, ListSets, ListIdentifiers, ListRecords, GetRecord)
+em `?tjm_oai=1`, JATS 1.2 XML exporter, Google Scholar citation_*
+metatags via wp_head. Painel Admin de Integracoes para credenciais.
 
 ## Arquitetura
 - **Namespace**: `TainacanJournalManager`
@@ -396,38 +401,58 @@ Estrutura pronta, basta implementar `// TODO` quando integracoes forem priorizad
 
 ## Roadmap
 
-### Phase 1 - MVP foundation (atual) - DONE
+### Phase 1 - MVP foundation - DONE
 Estrutura completa, CPTs, roles, workflow, mailer, shortcodes esqueleto.
 
-### Phase 2 - Submission/Review UIs (proximo)
-- Wizard de submissao multi-step com upload de manuscrito
-- UI de coautores + ORCID
-- Declaracoes (originalidade, conflito de interesses, copyright)
-- UI de atribuicao de avaliadores no editorial dashboard
-- Formulario de parecer configuravel por periodico
-- Anonimizacao para blind/double-blind
-- UI de gerenciamento de roles
+### Phase 2 - Submission/Review UIs (atual) - DONE
+- Wizard de submissao multi-step com upload de manuscrito (`templates/frontend/submission-wizard.php`)
+- UI de coautores + ORCID (formatado via `OrcidService::format`)
+- Declaracoes (originalidade, COI, copyright, etica) com validacao em `SubmissionService::is_complete`
+- UI de atribuicao de avaliadores no editorial dashboard (`templates/frontend/editorial-detail.php`)
+- Formulario de parecer configuravel por periodico (`Review\ReviewFormConfig` + metabox no Journal CPT)
+- Anonimizacao para blind/double-blind (`Submission\AnonymizationService`)
+- UI de gerenciamento de roles (shortcode `[tjm_role_management]`, slug `journal-roles`)
+- AJAX handlers em `src/Frontend/Ajax/` (Submission, Editorial, Review, Roles)
+- Tokens one-click accept/decline para convites por email (`ReviewAjax::handle_token_link`)
 
-### Phase 3 - Producao e publicacao
-- Copyediting com versoes
-- Galley manager (PDF, HTML, XML)
-- Aprovacao de prova pelo autor
-- ArticlePublisher completo (popula todos os 17 metadados Tainacan)
-- Pagina publica do artigo
-- Gerenciamento de edicoes (volume/numero/dossie)
+### Phase 3 - Producao e publicacao (atual) - DONE
+- Copyediting com versoes (`Production\CopyeditingService`)
+- Galley manager PDF/HTML/XML/EPUB/JATS (`Production\GalleyService`)
+- Aprovacao de prova pelo autor (`Production\ProofApprovalService`)
+- ArticlePublisher completo populando os 17 metadados Tainacan (`Tainacan\ArticlePublisher`)
+- Pagina publica do artigo via shortcode `[tjm_article id=N]` (`Frontend\PublicArticle`)
+- Gerenciamento de edicoes via UI editorial `?issues=1` + metabox Issue CPT (`Issues\IssueManager`)
+- Shortcode `[tjm_copyediting_dashboard]` (slug `copyediting-dashboard`) para copyeditor/layout editor
+- AJAX handlers `Frontend\Ajax\ProductionAjax` e `Frontend\Ajax\IssueAjax`
+- E-mail templates novos: `copyediting-version`, `proof-request`, `decision-revisions`, `submission-published`
 
-### Phase 4 - Indicadores
-- Chart.js dashboard (replicar padrao do Pontos de Memoria com IndicatorsDashboard)
-- Export PDF/XLSX (libs locais em assets/js/vendor/)
-- Top reviewers, top journals, distribuicao geografica
+### Phase 4 - Indicadores - DONE
+- Chart.js dashboard cacheado em transient 15min (`Indicators\StatsService`)
+- 6 cards (submissions, published, reviews, journals, issues, acceptance rate)
+- 5 graficos (status, monthly trend, per-journal, top journals, top reviewers)
+- Export CSV com BOM UTF-8 (Excel-friendly), print via window.print()
+- Cache invalidado nos hooks tjm_status_transition / tjm_review_submitted /
+  tjm_decision_recorded / tjm_article_published / tjm_issue_published
+- Chart.js 4.x carregado de `assets/js/vendor/chart.umd.min.js` (vide README local)
 
-### Phase 5 - Interoperabilidade
-- DOI minting via Crossref
-- ORCID OAuth sign-in
-- OAI-PMH 2.0 endpoint
-- DOAJ export
-- JATS XML production
-- Google Scholar metadata tags
+### Phase 5 - Interoperabilidade - DONE
+- ORCID validacao Mod-11-2 real (`Integrations\OrcidService::is_valid` agora
+  computa o checksum) + OAuth 3-legged (`Integrations\OrcidOAuthService`)
+  com endpoints `?tjm_orcid=connect|callback`
+- DOI helpers (`Integrations\DoiService`: format/normalize/is_valid)
+- Crossref deposit XML 5.3.1 (`Integrations\CrossrefExporter`) + API submit
+  multipart (`Integrations\CrossrefDeposit::submit`)
+- DOAJ Articles JSON (`Integrations\DoajExporter::build_article`) + API submit
+- OAI-PMH 2.0 completo em `?tjm_oai=1` (`Integrations\OaiPmhProvider`):
+  Identify, ListMetadataFormats, ListSets (1 set por periodico),
+  ListIdentifiers, ListRecords, GetRecord; metadata format `oai_dc`
+- JATS 1.2 XML (`Integrations\JatsExporter`)
+- Google Scholar citation_* metatags via wp_head em paginas com
+  `[tjm_article]` (`Integrations\ScholarMetadata`)
+- AJAX endpoints em `Frontend\Ajax\IntegrationsAjax`:
+  tjm_export_crossref, tjm_export_doaj, tjm_export_jats, tjm_doi_mint,
+  tjm_doaj_submit, tjm_doi_set
+- Submenu Admin "Integrations" para credenciais (ORCID, Crossref, DOAJ)
 
 ### Phase 6 - Avancado
 - Tradução para espanhol

@@ -331,3 +331,263 @@
     margin: 0 0 12px;
     color: var(--tjm-primary);
 }
+
+/* ===================================================================
+   Phase 2 — wizard, editorial detail, reviewer detail, roles
+   =================================================================== */
+
+.tjm-btn--danger {
+    background: var(--tjm-danger);
+    color: #fff;
+    border-color: var(--tjm-danger);
+}
+.tjm-btn--danger:hover { background: #b91c1c; color: #fff; }
+
+/* Wizard step indicator */
+.tjm-wizard-steps {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    list-style: none;
+    padding: 0;
+    margin: 0 0 24px;
+    counter-reset: step;
+}
+.tjm-wizard-step {
+    flex: 1 1 0;
+    min-width: 120px;
+    padding: 12px 16px;
+    background: var(--tjm-card-bg);
+    border: 1px solid var(--tjm-border);
+    border-radius: var(--tjm-radius);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--tjm-text-light);
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.15s;
+    counter-increment: step;
+    position: relative;
+}
+.tjm-wizard-step::before {
+    content: counter(step);
+    display: inline-block;
+    margin-right: 6px;
+    width: 22px; height: 22px; line-height: 22px;
+    border-radius: 50%;
+    background: var(--tjm-bg);
+    color: var(--tjm-text-light);
+    text-align: center;
+    font-size: 12px;
+}
+.tjm-wizard-step.is-active {
+    background: var(--tjm-primary);
+    color: #fff;
+    border-color: var(--tjm-primary);
+}
+.tjm-wizard-step.is-active::before { background: #fff; color: var(--tjm-primary); }
+.tjm-wizard-step:hover:not(.is-active) { border-color: var(--tjm-primary); color: var(--tjm-primary); }
+
+.tjm-wizard-pane { display: none; }
+.tjm-wizard-pane.is-active { display: block; }
+
+.tjm-wizard-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid var(--tjm-border);
+}
+
+.tjm-wizard-message {
+    margin-bottom: 12px;
+}
+
+/* Coauthor rows */
+.tjm-coauthor-row {
+    display: grid;
+    grid-template-columns: 1.2fr 1.2fr 1.5fr 1.2fr auto;
+    gap: 10px;
+    align-items: end;
+    padding: 12px;
+    background: var(--tjm-bg);
+    border: 1px solid var(--tjm-border);
+    border-radius: 6px;
+    margin-bottom: 8px;
+}
+.tjm-coauthor-row .tjm-field { margin: 0; }
+.tjm-coauthor-row label { font-size: 11px; }
+@media (max-width: 800px) {
+    .tjm-coauthor-row { grid-template-columns: 1fr; }
+}
+
+.tjm-empty-inline {
+    color: var(--tjm-text-light);
+    font-style: italic;
+    padding: 8px;
+}
+
+/* Declaration checkboxes */
+.tjm-checkbox {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 12px 14px;
+    background: var(--tjm-bg);
+    border: 1px solid var(--tjm-border);
+    border-radius: 6px;
+    margin-bottom: 8px;
+    cursor: pointer;
+}
+.tjm-checkbox input[type="checkbox"] { margin-top: 3px; }
+
+/* Detail meta strip */
+.tjm-detail-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    align-items: center;
+    margin-bottom: 16px;
+    padding: 10px 14px;
+    background: var(--tjm-bg);
+    border-radius: var(--tjm-radius);
+    font-size: 13px;
+    color: var(--tjm-text-light);
+}
+.tjm-detail-meta .tjm-status-badge { font-size: 11px; }
+
+.tjm-history {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+.tjm-history li {
+    padding: 8px 0;
+    border-bottom: 1px solid var(--tjm-border);
+    font-size: 13px;
+}
+.tjm-history li:last-child { border-bottom: none; }
+.tjm-history-date {
+    display: inline-block;
+    min-width: 150px;
+    color: var(--tjm-text-light);
+    font-variant-numeric: tabular-nums;
+}
+
+/* Editorial invite row */
+.tjm-invite-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr auto;
+    gap: 12px;
+    align-items: end;
+    margin-top: 8px;
+}
+@media (max-width: 800px) {
+    .tjm-invite-row { grid-template-columns: 1fr; }
+}
+
+/* Decline reason inline panel */
+.tjm-decline-reason {
+    margin-top: 12px;
+    padding: 12px;
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    border-radius: 6px;
+}
+
+/* Role checkboxes grid */
+.tjm-roles-checkboxes {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 8px;
+    margin-bottom: 12px;
+}
+.tjm-roles-checkboxes .tjm-checkbox {
+    margin-bottom: 0;
+}
+
+/* Status colours extended for editorial cards */
+.tjm-card--published, .tjm-card--copyediting, .tjm-card--production { border-top-color: var(--tjm-success); }
+.tjm-card--rejected, .tjm-card--withdrawn { border-top-color: var(--tjm-danger); }
+.tjm-card--revision, .tjm-card--decision { border-top-color: var(--tjm-warning); }
+.tjm-card--submitted, .tjm-card--triage, .tjm-card--review { border-top-color: var(--tjm-primary); }
+.tjm-card--draft { border-top-color: var(--tjm-text-light); }
+
+/* ===================================================================
+   Phase 3 — copyediting, galleys, issues, public article
+   =================================================================== */
+
+.tjm-issue-card {
+    background: var(--tjm-card-bg);
+    border: 1px solid var(--tjm-border);
+    border-radius: var(--tjm-radius);
+    padding: 16px;
+    margin-bottom: 12px;
+    box-shadow: var(--tjm-shadow);
+}
+.tjm-issue-card-header h4 {
+    margin: 0 0 6px;
+    color: var(--tjm-primary);
+}
+.tjm-issue-card details {
+    margin: 12px 0;
+    padding: 8px 12px;
+    background: var(--tjm-bg);
+    border-radius: 4px;
+}
+.tjm-issue-card summary {
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--tjm-text-light);
+}
+
+.tjm-galley-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+.tjm-galley-list li { margin: 0; }
+
+.tjm-article header.tjm-journal-header {
+    margin-bottom: 24px;
+}
+.tjm-article-authors {
+    color: var(--tjm-text-light);
+    font-size: 14px;
+    margin: 8px 0 4px;
+}
+.tjm-article-meta { font-size: 13px; }
+.tjm-article-footer {
+    margin-top: 32px;
+    padding-top: 16px;
+    border-top: 1px solid var(--tjm-border);
+    font-size: 13px;
+}
+
+/* ===================================================================
+   Phase 4 — indicators dashboard
+   =================================================================== */
+
+.tjm-indicators-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.tjm-indicators canvas {
+    max-width: 100%;
+}
+
+@media print {
+    .tjm-indicators-actions,
+    .site-header,
+    nav,
+    footer,
+    .wp-block-buttons,
+    #wpadminbar { display: none !important; }
+    .tjm-indicators { width: 100% !important; padding: 0 !important; }
+    .tjm-section { break-inside: avoid; page-break-inside: avoid; }
+}

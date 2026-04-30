@@ -16,6 +16,21 @@ use TainacanJournalManager\Frontend\ReviewerDashboard;
 use TainacanJournalManager\Frontend\EditorialDashboard;
 use TainacanJournalManager\Frontend\PublicJournal;
 use TainacanJournalManager\Frontend\IndicatorsDashboard;
+use TainacanJournalManager\Frontend\RoleManagement;
+use TainacanJournalManager\Frontend\CopyeditingDashboard;
+use TainacanJournalManager\Frontend\PublicArticle;
+use TainacanJournalManager\Frontend\Ajax\SubmissionAjax;
+use TainacanJournalManager\Frontend\Ajax\EditorialAjax;
+use TainacanJournalManager\Frontend\Ajax\ReviewAjax;
+use TainacanJournalManager\Frontend\Ajax\RolesAjax;
+use TainacanJournalManager\Frontend\Ajax\ProductionAjax;
+use TainacanJournalManager\Frontend\Ajax\IssueAjax;
+use TainacanJournalManager\Frontend\Ajax\IndicatorsAjax;
+use TainacanJournalManager\Frontend\Ajax\IntegrationsAjax;
+use TainacanJournalManager\Indicators\StatsService;
+use TainacanJournalManager\Integrations\OrcidOAuthService;
+use TainacanJournalManager\Integrations\OaiPmhProvider;
+use TainacanJournalManager\Integrations\ScholarMetadata;
 use TainacanJournalManager\Roles\RoleManager;
 use TainacanJournalManager\Notifications\Mailer;
 use TainacanJournalManager\Tainacan\CollectionProvisioner;
@@ -64,6 +79,31 @@ final class Plugin
         (new EditorialDashboard())->register();
         (new PublicJournal())->register();
         (new IndicatorsDashboard())->register();
+        (new RoleManagement())->register();
+        (new CopyeditingDashboard())->register();
+        (new PublicArticle())->register();
+
+        // ── AJAX handlers ──────────────────────────────────────────
+        (new SubmissionAjax())->register();
+        (new EditorialAjax())->register();
+        (new ReviewAjax())->register();
+        (new RolesAjax())->register();
+        (new ProductionAjax())->register();
+        (new IssueAjax())->register();
+        (new IndicatorsAjax())->register();
+        (new IntegrationsAjax())->register();
+
+        // ── Phase 5 integrations ───────────────────────────────────
+        (new OrcidOAuthService())->register();
+        (new OaiPmhProvider())->register();
+        (new ScholarMetadata())->register();
+
+        // Invalidate stats cache on workflow events
+        add_action('tjm_status_transition',  [StatsService::class, 'invalidate_cache']);
+        add_action('tjm_review_submitted',   [StatsService::class, 'invalidate_cache']);
+        add_action('tjm_decision_recorded',  [StatsService::class, 'invalidate_cache']);
+        add_action('tjm_article_published',  [StatsService::class, 'invalidate_cache']);
+        add_action('tjm_issue_published',    [StatsService::class, 'invalidate_cache']);
 
         // ── Admin ───────────────────────────────────────────────────
         if (is_admin()) {
