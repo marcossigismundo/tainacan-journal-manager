@@ -9,6 +9,7 @@ use TainacanJournalManager\PostTypes\Journal;
 use TainacanJournalManager\PostTypes\Submission;
 use TainacanJournalManager\PostTypes\Review;
 use TainacanJournalManager\PostTypes\Issue;
+use TainacanJournalManager\Audit\AuditLog;
 
 /**
  * Plugin activation: register CPTs, set up roles, provision Tainacan collections.
@@ -25,6 +26,9 @@ final class Activator
 
         // Set up application roles (capabilities for admin)
         RoleManager::install();
+
+        // Phase 6 — audit log table
+        AuditLog::install_table();
 
         // Mark version
         update_option('tjm_version', TJM_VERSION);

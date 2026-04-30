@@ -3,8 +3,8 @@
 /**
  * Plugin Name: Tainacan Journal Manager
  * Plugin URI:  https://github.com/marcossigismundo/tainacan-journal-manager
- * Description: Transforms a Tainacan-powered WordPress installation into a complete electronic scientific journal management platform with editorial workflow inspired by OJS (Open Journal Systems).
- * Version:     0.5.0
+ * Description: Tainacan-integrated platform for managing electronic scientific journals (editorial workflow inspired by OJS, with admin pages embedded in the Tainacan admin shell).
+ * Version:     0.7.0
  * Author:      Marcos Sigismundo
  * Author URI:  https://github.com/marcossigismundo
  * License:     GPL-2.0-or-later
@@ -12,6 +12,7 @@
  * Domain Path: /languages
  * Requires PHP: 8.0
  * Requires at least: 6.0
+ * Requires Plugins: tainacan
  */
 
 declare(strict_types=1);
@@ -21,12 +22,12 @@ if (! defined('ABSPATH')) {
 }
 
 // ── Plugin constants ─────────────────────────────────────────────────
-define('TJM_VERSION',  '0.5.0');
+define('TJM_VERSION',  '0.7.0');
 define('TJM_PATH',     plugin_dir_path(__FILE__));
 define('TJM_URL',      plugin_dir_url(__FILE__));
 define('TJM_BASENAME', plugin_basename(__FILE__));
 
-// ── Requirements check ───────────────────────────────────────────────
+// ── PHP version check ────────────────────────────────────────────────
 if (version_compare(PHP_VERSION, '8.0', '<')) {
     add_action('admin_notices', function (): void {
         echo '<div class="notice notice-error"><p>';
@@ -51,21 +52,24 @@ register_deactivation_hook(__FILE__, [\TainacanJournalManager\Deactivator::class
 
 // ── Bootstrap ────────────────────────────────────────────────────────
 add_action('plugins_loaded', function (): void {
-    // i18n
     load_plugin_textdomain(
         'tainacan-journal-manager',
         false,
         dirname(TJM_BASENAME) . '/languages'
     );
 
-    // Notify if Tainacan is missing
-    if (! class_exists('\Tainacan\Repositories\Items')) {
+    // Tainacan is now a hard dependency — the plugin's admin UI extends
+    // \Tainacan\Pages and the publishing layer talks to Tainacan repos.
+    // Missing Tainacan ⇒ show a notice and skip plugin init entirely.
+    if (! class_exists('\Tainacan\Pages')) {
         add_action('admin_notices', function (): void {
-            echo '<div class="notice notice-warning"><p>';
-            echo esc_html__('Tainacan Journal Manager requires the Tainacan plugin to be active. Please install and activate Tainacan to use the publishing features.', 'tainacan-journal-manager');
+            echo '<div class="notice notice-error"><p><strong>';
+            echo esc_html__('Tainacan Journal Manager', 'tainacan-journal-manager');
+            echo '</strong> — ';
+            echo esc_html__('requires the Tainacan plugin (version 1.0.0+) to be installed and activated.', 'tainacan-journal-manager');
             echo '</p></div>';
         });
-        // Continue loading — plugin still works for editorial workflow without Tainacan
+        return;
     }
 
     \TainacanJournalManager\Plugin::get_instance()->init();

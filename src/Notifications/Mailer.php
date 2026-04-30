@@ -28,11 +28,13 @@ final class Mailer
         }
 
         $body = $this->render_template($template_key, $data);
+        $body = (string) apply_filters('tjm_mailer_body', $body, $template_key, $data);
         if (! $body) {
             return false;
         }
 
         $subject = $this->subject_for($template_key, $data);
+        $subject = (string) apply_filters('tjm_mailer_subject', $subject, $template_key, $data);
 
         $from_email = Config::email_from_address();
         $from_name  = (string) get_option(Config::OPTION_EMAIL_FROM_NAME, Config::EMAIL_FROM_NAME);

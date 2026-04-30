@@ -1,0 +1,367 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Tainacan Journal Manager 0.6.0\n"
+"Report-Msgid-Bugs-To: https://github.com/marcossigismundo/tainacan-journal-manager/issues\n"
+"POT-Creation-Date: 2026-04-30T00:00:00+00:00\n"
+"PO-Revision-Date: 2026-04-30 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: Spanish <es@example.com>\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Domain: tainacan-journal-manager\n"
+
+# ── Geral / chrome ─────────────────────────────────────────────────
+msgid "Journals"
+msgstr "Revistas"
+
+msgid "Journal"
+msgstr "Revista"
+
+msgid "Submissions"
+msgstr "Envíos"
+
+msgid "Submission"
+msgstr "Envío"
+
+msgid "Reviews"
+msgstr "Revisiones"
+
+msgid "Issues"
+msgstr "Números"
+
+msgid "Issue"
+msgstr "Número"
+
+msgid "Settings"
+msgstr "Ajustes"
+
+msgid "Integrations"
+msgstr "Integraciones"
+
+msgid "Email templates"
+msgstr "Plantillas de correo"
+
+msgid "Audit log"
+msgstr "Registro de auditoría"
+
+msgid "Editorial PDF report"
+msgstr "Informe editorial en PDF"
+
+msgid "Journal Manager"
+msgstr "Gestor de Revistas"
+
+msgid "Manage Journals"
+msgstr "Gestionar revistas"
+
+msgid "Manage Submissions"
+msgstr "Gestionar envíos"
+
+msgid "Manage Issues"
+msgstr "Gestionar números"
+
+msgid "Quick links"
+msgstr "Accesos rápidos"
+
+# ── Acesso / login ────────────────────────────────────────────────
+msgid "Please log in to access the author portal."
+msgstr "Inicie sesión para acceder al portal del autor."
+
+msgid "Please log in to access the reviewer dashboard."
+msgstr "Inicie sesión para acceder al panel del revisor."
+
+msgid "Please log in to access the editorial dashboard."
+msgstr "Inicie sesión para acceder al panel editorial."
+
+msgid "Please log in."
+msgstr "Inicie sesión."
+
+msgid "You need the Author role to access this portal."
+msgstr "Necesita el rol de Autor para acceder a este portal."
+
+msgid "You need the Reviewer role to access this dashboard."
+msgstr "Necesita el rol de Revisor para acceder a este panel."
+
+msgid "You need an Editor role to access this dashboard."
+msgstr "Necesita un rol de Editor para acceder a este panel."
+
+msgid "You do not have permission to access this page."
+msgstr "No tiene permiso para acceder a esta página."
+
+msgid "Access denied"
+msgstr "Acceso denegado"
+
+msgid "Not logged in."
+msgstr "No autenticado."
+
+msgid "Editor role required."
+msgstr "Se requiere rol de Editor."
+
+# ── Wizard de submissão ───────────────────────────────────────────
+msgid "My Submissions"
+msgstr "Mis envíos"
+
+msgid "+ New Submission"
+msgstr "+ Nuevo envío"
+
+msgid "New submission"
+msgstr "Nuevo envío"
+
+msgid "Edit submission"
+msgstr "Editar envío"
+
+msgid "Back to list"
+msgstr "Volver a la lista"
+
+msgid "Manuscript"
+msgstr "Manuscrito"
+
+msgid "Authors"
+msgstr "Autores"
+
+msgid "Co-authors"
+msgstr "Coautores"
+
+msgid "File"
+msgstr "Archivo"
+
+msgid "Declarations"
+msgstr "Declaraciones"
+
+msgid "Manuscript metadata"
+msgstr "Metadatos del manuscrito"
+
+msgid "Title"
+msgstr "Título"
+
+msgid "Working title"
+msgstr "Título provisional"
+
+msgid "Abstract"
+msgstr "Resumen"
+
+msgid "Keywords (comma-separated)"
+msgstr "Palabras clave (separadas por coma)"
+
+msgid "Keywords"
+msgstr "Palabras clave"
+
+msgid "Language"
+msgstr "Idioma"
+
+msgid "References"
+msgstr "Referencias"
+
+msgid "Funding agency"
+msgstr "Agencia financiadora"
+
+msgid "Save and continue"
+msgstr "Guardar y continuar"
+
+msgid "Back"
+msgstr "Volver"
+
+msgid "Add co-author"
+msgstr "Añadir coautor"
+
+msgid "Remove"
+msgstr "Eliminar"
+
+msgid "Name"
+msgstr "Nombre"
+
+msgid "Email"
+msgstr "Correo electrónico"
+
+msgid "Affiliation"
+msgstr "Afiliación"
+
+msgid "Manuscript file"
+msgstr "Archivo del manuscrito"
+
+msgid "Choose file"
+msgstr "Elegir archivo"
+
+msgid "Upload"
+msgstr "Subir"
+
+msgid "Skip / continue"
+msgstr "Omitir / continuar"
+
+msgid "Submit manuscript"
+msgstr "Enviar manuscrito"
+
+msgid "Withdraw draft"
+msgstr "Retirar borrador"
+
+# ── Status ────────────────────────────────────────────────────────
+msgid "Status"
+msgstr "Estado"
+
+msgid "Submitted"
+msgstr "Enviado"
+
+msgid "Draft"
+msgstr "Borrador"
+
+msgid "In Triage"
+msgstr "En triaje"
+
+msgid "In Review"
+msgstr "En revisión"
+
+msgid "Revision Required"
+msgstr "Revisión requerida"
+
+msgid "Awaiting Decision"
+msgstr "Esperando decisión"
+
+msgid "Copyediting"
+msgstr "Corrección"
+
+msgid "Production"
+msgstr "Producción"
+
+msgid "Published"
+msgstr "Publicado"
+
+msgid "Rejected"
+msgstr "Rechazado"
+
+msgid "Withdrawn"
+msgstr "Retirado"
+
+msgid "View"
+msgstr "Ver"
+
+msgid "Open"
+msgstr "Abrir"
+
+msgid "Manage"
+msgstr "Gestionar"
+
+# ── Editorial ─────────────────────────────────────────────────────
+msgid "Editorial Dashboard"
+msgstr "Panel editorial"
+
+msgid "Recent Submissions"
+msgstr "Envíos recientes"
+
+msgid "Workflow"
+msgstr "Flujo"
+
+msgid "Reviewers"
+msgstr "Revisores"
+
+msgid "Invite a reviewer"
+msgstr "Invitar revisor"
+
+msgid "Reviewer"
+msgstr "Revisor"
+
+msgid "Deadline"
+msgstr "Plazo"
+
+msgid "Send invitation"
+msgstr "Enviar invitación"
+
+msgid "Editorial decision"
+msgstr "Decisión editorial"
+
+msgid "Decision"
+msgstr "Decisión"
+
+msgid "Accept"
+msgstr "Aceptar"
+
+msgid "Request revisions"
+msgstr "Solicitar revisiones"
+
+msgid "Reject"
+msgstr "Rechazar"
+
+msgid "Record decision"
+msgstr "Registrar decisión"
+
+msgid "Status history"
+msgstr "Historial de estado"
+
+# ── Reviewer ──────────────────────────────────────────────────────
+msgid "Reviewer Dashboard"
+msgstr "Panel del revisor"
+
+msgid "Peer review"
+msgstr "Revisión por pares"
+
+msgid "Accept invitation"
+msgstr "Aceptar invitación"
+
+msgid "Decline"
+msgstr "Rechazar"
+
+msgid "Review form"
+msgstr "Formulario de revisión"
+
+msgid "Comments to the author"
+msgstr "Comentarios al autor"
+
+msgid "Confidential comments to the editor"
+msgstr "Comentarios confidenciales al editor"
+
+msgid "Recommendation"
+msgstr "Recomendación"
+
+msgid "Submit review"
+msgstr "Enviar revisión"
+
+# ── Indicadores ───────────────────────────────────────────────────
+msgid "Editorial Indicators"
+msgstr "Indicadores editoriales"
+
+msgid "Editorial Report"
+msgstr "Informe editorial"
+
+msgid "Print / PDF"
+msgstr "Imprimir / PDF"
+
+msgid "Export CSV"
+msgstr "Exportar CSV"
+
+msgid "Submissions per status"
+msgstr "Envíos por estado"
+
+msgid "Top reviewers"
+msgstr "Revisores más activos"
+
+msgid "Acceptance rate"
+msgstr "Tasa de aceptación"
+
+msgid "Executive summary"
+msgstr "Resumen ejecutivo"
+
+# ── Auditoria ────────────────────────────────────────────────────
+msgid "When (UTC)"
+msgstr "Cuándo (UTC)"
+
+msgid "Event"
+msgstr "Evento"
+
+msgid "Object"
+msgstr "Objeto"
+
+msgid "Filter"
+msgstr "Filtrar"
+
+msgid "Reset"
+msgstr "Restablecer"
+
+msgid "No entries match."
+msgstr "Sin registros."
+
+msgid "system"
+msgstr "sistema"
+
+msgid "view"
+msgstr "ver"

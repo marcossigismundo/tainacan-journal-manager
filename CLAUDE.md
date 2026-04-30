@@ -9,21 +9,36 @@ Inspirado arquiteturalmente no plugin **Pontos de Memoria** (mesma instalacao,
 em `wp-content/plugins/pontos-de-memoria/`), mas com modelagem propria adequada
 ao dominio editorial cientifico.
 
-**Status**: 0.5.0 — Phases 4 e 5 entregues. Indicadores com Chart.js
-(StatsService cacheado, 6 cards, 5 graficos, export CSV, print/PDF
-do navegador). Interoperabilidade: ORCID Mod-11-2 real + OAuth 3-legged,
-DOI helpers + Crossref deposit XML 5.3.1 e API submit, DOAJ Articles
-JSON + API submit, OAI-PMH 2.0 endpoint completo (Identify,
-ListMetadataFormats, ListSets, ListIdentifiers, ListRecords, GetRecord)
-em `?tjm_oai=1`, JATS 1.2 XML exporter, Google Scholar citation_*
-metatags via wp_head. Painel Admin de Integracoes para credenciais.
+**Status**: 0.7.0 — Refatoracao da interface admin para integrar com
+o core do Tainacan. Tainacan agora e dependencia OBRIGATORIA (o plugin
+nao inicializa sem ele). Todas as 5 paginas admin (Dashboard, Settings,
+Integrations, Email Templates, Audit Log) extendem `\Tainacan\Pages` e
+ficam sob a sidebar do Tainacan. Menu proprio `tjm-main` removido;
+CPTs voltam ao menu nativo do WP. Paleta visual alinhada com Tainacan
+(turquesa #298596). Documentacao da refatoracao:
+https://tainacan.github.io/tainacan-wiki/#/dev/creating-tainacan-admin-pages
 
 ## Arquitetura
 - **Namespace**: `TainacanJournalManager`
 - **Estrutura**: `src/` (classes), `templates/` (views), `assets/` (CSS/JS)
-- **Integracao**: Tainacan (camada de publicacao final)
-- **Dependencias**: nenhuma externa no MVP (mPDF, Chart.js, jsPDF virao em Phase 2-4)
+- **Integracao Tainacan**: OBRIGATORIA. Admin pages extendem
+  `\Tainacan\Pages` (Tainacan 1.0.0+). Sem Tainacan o plugin nao
+  inicializa (admin notice e early return).
+- **Dependencias**: nenhuma externa no MVP (Chart.js opcional em vendor/)
 - **PHP**: 8.0+ • **WordPress**: 6.0+ • **License**: GPL-2.0-or-later
+
+### Paginas admin Tainacan-integradas (`src/Admin/Tainacan/`)
+Cada classe extende `\Tainacan\Pages` + trait `Singleton_Instance`:
+- `DashboardPage` (slug `tjm_dashboard`) — landing sob `tainacan_root_menu_slug`, posicao 8
+- `SettingsPage` (slug `tjm_settings`) — sob `tainacan_other_links_slug`
+- `IntegrationsPage` (slug `tjm_integrations`)
+- `EmailTemplatesPage` (slug `tjm_email_templates`)
+- `AuditLogPage` (slug `tjm_audit_log`)
+
+`SettingsRegistry` registra os campos via WP Settings API (separado da
+renderizacao). CSS dedicado em `assets/css/admin-tainacan.css` usa
+classes `tainacan-page-container-content`, `tainacan-fixed-subheader`,
+`tainacan-page-title` para integrar visualmente com o Tainacan.
 
 ### Fluxo editorial (substitui o fluxo do Pontos de Memoria)
 
@@ -454,11 +469,25 @@ Estrutura completa, CPTs, roles, workflow, mailer, shortcodes esqueleto.
   tjm_doaj_submit, tjm_doi_set
 - Submenu Admin "Integrations" para credenciais (ORCID, Crossref, DOAJ)
 
-### Phase 6 - Avancado
-- Tradução para espanhol
-- Editor de templates de email no admin
-- Relatorios PDF para gestores
-- Audit logs
+### Phase 6 - Avancado - DONE
+- Audit log persistente em tabela propria (`Audit\AuditLog`); submenu
+  admin "Audit log" com filtros por evento, objeto, usuario, data e
+  full-text. Hooks subscritos: status_transition, decision_recorded,
+  submission_submitted, review_invited/accepted/declined/submitted,
+  article_published, issue_published, proof_approved/changes_requested,
+  galley_added, copyediting_version_uploaded
+- Editor de templates de email (`Notifications\TemplateOverrides` +
+  `Admin\EmailTemplatesPage`): overrides em option `tjm_email_overrides`,
+  aplicados via filtros `tjm_mailer_subject` e `tjm_mailer_body`,
+  com placeholders `{{token}}` interpolados a partir do data array
+- Relatorios PDF para gestores: `?tjm_report=editorial[&journal=N]`
+  renderiza HTML standalone print-friendly com summary, charts ASCII,
+  top reviewers, acceptance rate. Sem dependencia de mPDF/DomPDF —
+  usa o "Save as PDF" do navegador. (`Reports\ReportRenderer`)
+- Traducoes em `languages/`: pt_BR completa (~250 strings), es_ES inicial
+  (~140 strings principais). README documenta como compilar `.mo`
+- Activator agora cria a tabela de audit; uninstall.php limpa
+  options de Phase 5 (ORCID/Crossref/DOAJ) e drop da tabela de audit
 
 ## Licoes do Pontos de Memoria Aplicadas
 

@@ -31,13 +31,20 @@ use TainacanJournalManager\Indicators\StatsService;
 use TainacanJournalManager\Integrations\OrcidOAuthService;
 use TainacanJournalManager\Integrations\OaiPmhProvider;
 use TainacanJournalManager\Integrations\ScholarMetadata;
+use TainacanJournalManager\Audit\AuditLog;
+use TainacanJournalManager\Notifications\TemplateOverrides;
+use TainacanJournalManager\Reports\ReportRenderer;
 use TainacanJournalManager\Roles\RoleManager;
-use TainacanJournalManager\Notifications\Mailer;
-use TainacanJournalManager\Tainacan\CollectionProvisioner;
-use TainacanJournalManager\Admin\SettingsPage;
+use TainacanJournalManager\Admin\SettingsRegistry;
 
 /**
  * Main plugin orchestrator (singleton).
+ *
+ * The plugin lives entirely inside the Tainacan admin shell — its admin
+ * pages extend `\Tainacan\Pages` and are loaded only when Tainacan is
+ * active (the bootstrap aborts otherwise). The frontend portals
+ * (author, reviewer, editorial, copyediting, public article) keep the
+ * shortcode-driven approach so they render in any theme.
  */
 final class Plugin
 {
@@ -71,7 +78,7 @@ final class Plugin
             }
         }, 5);
 
-        // ── Frontend ────────────────────────────────────────────────
+        // ── Frontend (shortcodes used in any theme) ─────────────────
         (new AuthGuard())->register();
         (new LoginPage())->register();
         (new AuthorPortal())->register();
@@ -98,6 +105,12 @@ final class Plugin
         (new OaiPmhProvider())->register();
         (new ScholarMetadata())->register();
 
+        // ── Phase 6 — audit, email overrides, manager reports ──────
+        AuditLog::maybe_upgrade();
+        (new AuditLog())->register();
+        (new TemplateOverrides())->register();
+        (new ReportRenderer())->register();
+
         // Invalidate stats cache on workflow events
         add_action('tjm_status_transition',  [StatsService::class, 'invalidate_cache']);
         add_action('tjm_review_submitted',   [StatsService::class, 'invalidate_cache']);
@@ -105,17 +118,34 @@ final class Plugin
         add_action('tjm_article_published',  [StatsService::class, 'invalidate_cache']);
         add_action('tjm_issue_published',    [StatsService::class, 'invalidate_cache']);
 
-        // ── Admin ───────────────────────────────────────────────────
+        // ── Admin (Tainacan-integrated) ────────────────────────────
         if (is_admin()) {
-            (new SettingsPage())->register();
+            // Pure WP Settings API registrations (works without Tainacan)
+            (new SettingsRegistry())->register();
+
+            // Page classes extend \Tainacan\Pages — already verified in
+            // the bootstrap. Each one is a Singleton (Tainacan trait).
+            $this->boot_tainacan_pages();
         }
 
         // ── Assets ──────────────────────────────────────────────────
         add_action('wp_enqueue_scripts', [$this, 'enqueue_frontend_assets']);
-        add_action('admin_enqueue_scripts', [$this, 'enqueue_admin_assets']);
 
         // ── Cron ────────────────────────────────────────────────────
         $this->register_cron();
+    }
+
+    /**
+     * Instantiate every Tainacan-integrated admin page singleton.
+     * Each call also registers the page's hooks (admin_menu etc.).
+     */
+    private function boot_tainacan_pages(): void
+    {
+        \TainacanJournalManager\Admin\Tainacan\DashboardPage::get_instance();
+        \TainacanJournalManager\Admin\Tainacan\SettingsPage::get_instance();
+        \TainacanJournalManager\Admin\Tainacan\IntegrationsPage::get_instance();
+        \TainacanJournalManager\Admin\Tainacan\EmailTemplatesPage::get_instance();
+        \TainacanJournalManager\Admin\Tainacan\AuditLogPage::get_instance();
     }
 
     public function enqueue_frontend_assets(): void
@@ -144,21 +174,6 @@ final class Plugin
                 'error'          => __('An error occurred. Please try again.', 'tainacan-journal-manager'),
             ],
         ]);
-    }
-
-    public function enqueue_admin_assets(string $hook): void
-    {
-        // Load only on plugin pages
-        if (! str_contains($hook, 'tjm-')) {
-            return;
-        }
-
-        wp_enqueue_style(
-            'tjm-admin',
-            TJM_URL . 'assets/css/admin.css',
-            [],
-            TJM_VERSION
-        );
     }
 
     private function register_cron(): void

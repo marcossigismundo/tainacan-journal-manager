@@ -1,0 +1,687 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Tainacan Journal Manager 0.6.0\n"
+"Report-Msgid-Bugs-To: https://github.com/marcossigismundo/tainacan-journal-manager/issues\n"
+"POT-Creation-Date: 2026-04-30T00:00:00+00:00\n"
+"PO-Revision-Date: 2026-04-30 00:00+0000\n"
+"Last-Translator: Marcos Sigismundo\n"
+"Language-Team: Portuguese (Brazil) <pt_BR@example.com>\n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Domain: tainacan-journal-manager\n"
+
+# ── Geral / chrome ─────────────────────────────────────────────────
+msgid "Journals"
+msgstr "Periódicos"
+
+msgid "Journal"
+msgstr "Periódico"
+
+msgid "Submissions"
+msgstr "Submissões"
+
+msgid "Submission"
+msgstr "Submissão"
+
+msgid "Reviews"
+msgstr "Pareceres"
+
+msgid "Issues"
+msgstr "Edições"
+
+msgid "Issue"
+msgstr "Edição"
+
+msgid "Settings"
+msgstr "Configurações"
+
+msgid "Integrations"
+msgstr "Integrações"
+
+msgid "Email templates"
+msgstr "Modelos de e-mail"
+
+msgid "Audit log"
+msgstr "Registro de auditoria"
+
+msgid "Editorial PDF report"
+msgstr "Relatório editorial em PDF"
+
+msgid "Journal Manager"
+msgstr "Gestor de Periódicos"
+
+msgid "Tainacan Journal Manager"
+msgstr "Tainacan Journal Manager"
+
+msgid "Manage Journals"
+msgstr "Gerenciar periódicos"
+
+msgid "Manage Submissions"
+msgstr "Gerenciar submissões"
+
+msgid "Manage Issues"
+msgstr "Gerenciar edições"
+
+msgid "Quick links"
+msgstr "Atalhos"
+
+# ── Acesso / login ────────────────────────────────────────────────
+msgid "Please log in to access the author portal."
+msgstr "Faça login para acessar o portal do autor."
+
+msgid "Please log in to access the reviewer dashboard."
+msgstr "Faça login para acessar o painel do avaliador."
+
+msgid "Please log in to access the editorial dashboard."
+msgstr "Faça login para acessar o painel editorial."
+
+msgid "Please log in."
+msgstr "Faça login."
+
+msgid "You need the Author role to access this portal."
+msgstr "Você precisa do papel Autor para acessar este portal."
+
+msgid "You need the Reviewer role to access this dashboard."
+msgstr "Você precisa do papel Avaliador para acessar este painel."
+
+msgid "You need an Editor role to access this dashboard."
+msgstr "Você precisa de um papel de Editor para acessar este painel."
+
+msgid "You do not have permission to access this page."
+msgstr "Você não tem permissão para acessar esta página."
+
+msgid "Access denied"
+msgstr "Acesso negado"
+
+msgid "Not logged in."
+msgstr "Não autenticado."
+
+msgid "Editor role required."
+msgstr "Papel de Editor obrigatório."
+
+# ── Wizard de submissão ───────────────────────────────────────────
+msgid "My Submissions"
+msgstr "Minhas submissões"
+
+msgid "+ New Submission"
+msgstr "+ Nova submissão"
+
+msgid "New submission"
+msgstr "Nova submissão"
+
+msgid "Edit submission"
+msgstr "Editar submissão"
+
+msgid "Back to list"
+msgstr "Voltar para a lista"
+
+msgid "Manuscript"
+msgstr "Manuscrito"
+
+msgid "Authors"
+msgstr "Autores"
+
+msgid "Co-authors"
+msgstr "Coautores"
+
+msgid "File"
+msgstr "Arquivo"
+
+msgid "Declarations"
+msgstr "Declarações"
+
+msgid "Review &amp; submit"
+msgstr "Revisar e enviar"
+
+msgid "Manuscript metadata"
+msgstr "Metadados do manuscrito"
+
+msgid "Title"
+msgstr "Título"
+
+msgid "Working title"
+msgstr "Título de trabalho"
+
+msgid "— choose a journal —"
+msgstr "— escolha um periódico —"
+
+msgid "Abstract"
+msgstr "Resumo"
+
+msgid "Keywords (comma-separated)"
+msgstr "Palavras-chave (separadas por vírgula)"
+
+msgid "Keywords"
+msgstr "Palavras-chave"
+
+msgid "Language"
+msgstr "Idioma"
+
+msgid "References"
+msgstr "Referências"
+
+msgid "Funding agency"
+msgstr "Agência de fomento"
+
+msgid "Save and continue"
+msgstr "Salvar e continuar"
+
+msgid "Back"
+msgstr "Voltar"
+
+msgid "Add co-author"
+msgstr "Adicionar coautor"
+
+msgid "Remove"
+msgstr "Remover"
+
+msgid "Name"
+msgstr "Nome"
+
+msgid "Email"
+msgstr "E-mail"
+
+msgid "Affiliation"
+msgstr "Afiliação"
+
+msgid "ORCID iD"
+msgstr "ORCID iD"
+
+msgid "Manuscript file"
+msgstr "Arquivo do manuscrito"
+
+msgid "Upload the manuscript (PDF, DOC, DOCX, ODT, RTF or TEX). Maximum 20 MB."
+msgstr "Envie o manuscrito (PDF, DOC, DOCX, ODT, RTF ou TEX). Máximo de 20 MB."
+
+msgid "Choose file"
+msgstr "Escolher arquivo"
+
+msgid "Upload"
+msgstr "Enviar"
+
+msgid "Skip / continue"
+msgstr "Pular / continuar"
+
+msgid "Current file:"
+msgstr "Arquivo atual:"
+
+msgid "No manuscript file uploaded yet."
+msgstr "Nenhum arquivo de manuscrito enviado."
+
+msgid "Please confirm the following statements before submitting."
+msgstr "Por favor confirme as declarações abaixo antes de enviar."
+
+msgid "I confirm this manuscript is original and has not been published or simultaneously submitted elsewhere."
+msgstr "Confirmo que este manuscrito é original e não foi publicado nem submetido simultaneamente a outro veículo."
+
+msgid "All authors disclose any conflicts of interest related to this work."
+msgstr "Todos os autores declaram quaisquer conflitos de interesse relacionados ao trabalho."
+
+msgid "I agree with the licensing and copyright terms of the journal."
+msgstr "Concordo com os termos de licenciamento e direitos autorais do periódico."
+
+msgid "Where applicable, ethical approvals (human/animal subjects) are documented in the manuscript."
+msgstr "Quando aplicáveis, as aprovações éticas (sujeitos humanos/animais) estão documentadas no manuscrito."
+
+msgid "Review and submit"
+msgstr "Revisar e enviar"
+
+msgid "Submit manuscript"
+msgstr "Enviar manuscrito"
+
+msgid "Withdraw draft"
+msgstr "Retirar rascunho"
+
+msgid "Submission is incomplete. Check title, abstract, journal, manuscript file and declarations."
+msgstr "Submissão incompleta. Verifique título, resumo, periódico, arquivo do manuscrito e declarações."
+
+# ── Listagem de submissões / status ───────────────────────────────
+msgid "Status"
+msgstr "Status"
+
+msgid "Submitted"
+msgstr "Submetido"
+
+msgid "Draft"
+msgstr "Rascunho"
+
+msgid "In Triage"
+msgstr "Em triagem"
+
+msgid "In Review"
+msgstr "Em avaliação"
+
+msgid "Revision Required"
+msgstr "Revisão necessária"
+
+msgid "Awaiting Decision"
+msgstr "Aguardando decisão"
+
+msgid "Copyediting"
+msgstr "Copidesque"
+
+msgid "Production"
+msgstr "Produção"
+
+msgid "Published"
+msgstr "Publicado"
+
+msgid "Rejected"
+msgstr "Rejeitado"
+
+msgid "Withdrawn"
+msgstr "Retirado"
+
+msgid "View"
+msgstr "Ver"
+
+msgid "Open"
+msgstr "Abrir"
+
+msgid "Manage"
+msgstr "Gerenciar"
+
+msgid "You have no submissions yet."
+msgstr "Você ainda não tem submissões."
+
+msgid "You have no review assignments at the moment."
+msgstr "Você não tem pareceres atribuídos no momento."
+
+# ── Dashboard editorial ───────────────────────────────────────────
+msgid "Editorial Dashboard"
+msgstr "Painel editorial"
+
+msgid "Recent Submissions"
+msgstr "Submissões recentes"
+
+msgid "Workflow"
+msgstr "Fluxo"
+
+msgid "Move to triage"
+msgstr "Mover para triagem"
+
+msgid "Move to peer review"
+msgstr "Mover para avaliação por pares"
+
+msgid "Reviewers"
+msgstr "Avaliadores"
+
+msgid "No reviewers invited yet."
+msgstr "Nenhum avaliador convidado ainda."
+
+msgid "Invite a reviewer"
+msgstr "Convidar avaliador"
+
+msgid "Reviewer"
+msgstr "Avaliador"
+
+msgid "— choose a reviewer —"
+msgstr "— escolha um avaliador —"
+
+msgid "Deadline"
+msgstr "Prazo"
+
+msgid "Send invitation"
+msgstr "Enviar convite"
+
+msgid "Editorial decision"
+msgstr "Decisão editorial"
+
+msgid "The editor always makes the final call. Reviewer recommendations are a guide, never a vote."
+msgstr "A decisão editorial é sempre humana. As recomendações dos pareceres são um guia, nunca um voto."
+
+msgid "Decision"
+msgstr "Decisão"
+
+msgid "— choose a decision —"
+msgstr "— escolha uma decisão —"
+
+msgid "Accept"
+msgstr "Aceitar"
+
+msgid "Request revisions"
+msgstr "Solicitar revisões"
+
+msgid "Resubmit for review"
+msgstr "Reenviar para avaliação"
+
+msgid "Reject"
+msgstr "Rejeitar"
+
+msgid "Justification (sent to author)"
+msgstr "Justificativa (enviada ao autor)"
+
+msgid "Record decision"
+msgstr "Registrar decisão"
+
+msgid "Status history"
+msgstr "Histórico de status"
+
+# ── Painel do avaliador ───────────────────────────────────────────
+msgid "Reviewer Dashboard"
+msgstr "Painel do avaliador"
+
+msgid "Peer review"
+msgstr "Avaliação por pares"
+
+msgid "Accept invitation"
+msgstr "Aceitar convite"
+
+msgid "Decline"
+msgstr "Recusar"
+
+msgid "Reason for declining (optional)"
+msgstr "Motivo da recusa (opcional)"
+
+msgid "Confirm decline"
+msgstr "Confirmar recusa"
+
+msgid "Review form"
+msgstr "Formulário de parecer"
+
+msgid "Comments to the author"
+msgstr "Comentários ao autor"
+
+msgid "Confidential comments to the editor"
+msgstr "Comentários confidenciais ao editor"
+
+msgid "Recommendation"
+msgstr "Recomendação"
+
+msgid "Minor revisions"
+msgstr "Revisões menores"
+
+msgid "Major revisions"
+msgstr "Revisões maiores"
+
+msgid "Submit review"
+msgstr "Enviar parecer"
+
+msgid "Originality"
+msgstr "Originalidade"
+
+msgid "Methodology"
+msgstr "Metodologia"
+
+msgid "Clarity and writing"
+msgstr "Clareza e redação"
+
+msgid "Relevance to the journal scope"
+msgstr "Relevância para o escopo do periódico"
+
+msgid "References and citations"
+msgstr "Referências e citações"
+
+msgid "Ethical considerations"
+msgstr "Considerações éticas"
+
+# ── Produção ──────────────────────────────────────────────────────
+msgid "Copyediting &amp; Production"
+msgstr "Copidesque e produção"
+
+msgid "Original manuscript"
+msgstr "Manuscrito original"
+
+msgid "Copyediting versions"
+msgstr "Versões de copidesque"
+
+msgid "Upload a new version"
+msgstr "Enviar nova versão"
+
+msgid "Notes for this round"
+msgstr "Notas desta rodada"
+
+msgid "Upload version"
+msgstr "Enviar versão"
+
+msgid "Notify author"
+msgstr "Notificar autor"
+
+msgid "Mark ready for production"
+msgstr "Marcar como pronto para produção"
+
+msgid "Galleys"
+msgstr "Provas finais"
+
+msgid "Final delivery files (PDF, HTML, XML, EPUB or JATS)."
+msgstr "Arquivos finais de entrega (PDF, HTML, XML, EPUB ou JATS)."
+
+msgid "Add a galley"
+msgstr "Adicionar prova"
+
+msgid "Format"
+msgstr "Formato"
+
+msgid "Label"
+msgstr "Rótulo"
+
+msgid "Add galley"
+msgstr "Adicionar prova"
+
+msgid "Proof approval"
+msgstr "Aprovação de prova"
+
+msgid "Send proof to author"
+msgstr "Enviar prova ao autor"
+
+msgid "Approve proof"
+msgstr "Aprovar prova"
+
+msgid "Request changes"
+msgstr "Solicitar alterações"
+
+msgid "Publish"
+msgstr "Publicar"
+
+msgid "Publish article"
+msgstr "Publicar artigo"
+
+# ── Edições ───────────────────────────────────────────────────────
+msgid "Issues management"
+msgstr "Gerenciamento de edições"
+
+msgid "Pick a journal"
+msgstr "Selecione um periódico"
+
+msgid "Create new issue"
+msgstr "Criar nova edição"
+
+msgid "Volume"
+msgstr "Volume"
+
+msgid "Number"
+msgstr "Número"
+
+msgid "Year"
+msgstr "Ano"
+
+msgid "Type"
+msgstr "Tipo"
+
+msgid "Regular"
+msgstr "Regular"
+
+msgid "Special"
+msgstr "Especial"
+
+msgid "Dossier"
+msgstr "Dossiê"
+
+msgid "Continuous"
+msgstr "Contínuo"
+
+msgid "Create"
+msgstr "Criar"
+
+msgid "Existing issues"
+msgstr "Edições existentes"
+
+msgid "No issues yet."
+msgstr "Nenhuma edição ainda."
+
+msgid "Assign article"
+msgstr "Atribuir artigo"
+
+msgid "Assign"
+msgstr "Atribuir"
+
+msgid "Unassign"
+msgstr "Desatribuir"
+
+msgid "Publish issue"
+msgstr "Publicar edição"
+
+# ── Gerenciamento de papéis ───────────────────────────────────────
+msgid "Role management"
+msgstr "Gerenciamento de papéis"
+
+msgid "Global roles"
+msgstr "Papéis globais"
+
+msgid "Per-journal roles"
+msgstr "Papéis por periódico"
+
+msgid "Pick a user"
+msgstr "Selecione um usuário"
+
+msgid "User"
+msgstr "Usuário"
+
+msgid "Save global roles"
+msgstr "Salvar papéis globais"
+
+msgid "Save journal roles"
+msgstr "Salvar papéis do periódico"
+
+msgid "Journal manager"
+msgstr "Gestor do periódico"
+
+msgid "Editor in chief"
+msgstr "Editor-chefe"
+
+msgid "Section editor"
+msgstr "Editor de seção"
+
+msgid "Author"
+msgstr "Autor"
+
+msgid "Copyeditor"
+msgstr "Copidesque"
+
+msgid "Layout editor"
+msgstr "Editor de layout"
+
+msgid "Reader"
+msgstr "Leitor"
+
+msgid "Institutional admin"
+msgstr "Administrador institucional"
+
+# ── Indicadores ───────────────────────────────────────────────────
+msgid "Editorial Indicators"
+msgstr "Indicadores editoriais"
+
+msgid "Editorial Report"
+msgstr "Relatório editorial"
+
+msgid "Print / PDF"
+msgstr "Imprimir / PDF"
+
+msgid "Print / Save as PDF"
+msgstr "Imprimir / Salvar como PDF"
+
+msgid "Export CSV"
+msgstr "Exportar CSV"
+
+msgid "Submissions per status"
+msgstr "Submissões por status"
+
+msgid "Submissions per month (last 12)"
+msgstr "Submissões por mês (últimos 12)"
+
+msgid "Submissions per journal"
+msgstr "Submissões por periódico"
+
+msgid "Top journals (published)"
+msgstr "Periódicos com mais publicações"
+
+msgid "Top reviewers"
+msgstr "Avaliadores mais ativos"
+
+msgid "Top reviewers (submitted reviews)"
+msgstr "Avaliadores mais ativos (pareceres enviados)"
+
+msgid "Acceptance rate"
+msgstr "Taxa de aceitação"
+
+msgid "Executive summary"
+msgstr "Resumo executivo"
+
+msgid "Generated on %s"
+msgstr "Gerado em %s"
+
+msgid "By %s"
+msgstr "Por %s"
+
+# ── Auditoria ────────────────────────────────────────────────────
+msgid "When (UTC)"
+msgstr "Quando (UTC)"
+
+msgid "IP"
+msgstr "IP"
+
+msgid "Event"
+msgstr "Evento"
+
+msgid "Object"
+msgstr "Objeto"
+
+msgid "Data"
+msgstr "Dados"
+
+msgid "Object type"
+msgstr "Tipo de objeto"
+
+msgid "Object ID"
+msgstr "ID do objeto"
+
+msgid "User ID"
+msgstr "ID do usuário"
+
+msgid "Since"
+msgstr "Desde"
+
+msgid "Search"
+msgstr "Buscar"
+
+msgid "Filter"
+msgstr "Filtrar"
+
+msgid "Reset"
+msgstr "Reiniciar"
+
+msgid "No entries match."
+msgstr "Nenhum registro encontrado."
+
+msgid "system"
+msgstr "sistema"
+
+msgid "view"
+msgstr "ver"
+
+msgid "Page %1$d of %2$d"
+msgstr "Página %1$d de %2$d"
+
+msgid "Previous"
+msgstr "Anterior"
+
+msgid "Next"
+msgstr "Próximo"
+
+msgid "%d entry"
+msgid_plural "%d entries"
+msgstr[0] "%d registro"
+msgstr[1] "%d registros"

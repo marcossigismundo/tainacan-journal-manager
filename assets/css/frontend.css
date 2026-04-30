@@ -3,18 +3,20 @@
    =================================================================== */
 
 :root {
-    --tjm-primary: #1a4480;
-    --tjm-primary-light: #2e5ea0;
-    --tjm-success: #059669;
-    --tjm-danger: #dc2626;
-    --tjm-warning: #d97706;
-    --tjm-bg: #f8f9fa;
+    /* Aligned with Tainacan core (turquoise primary) so author/reviewer
+       portals visually belong to the same family as the Tainacan admin. */
+    --tjm-primary: #298596;
+    --tjm-primary-light: #3a9eb0;
+    --tjm-success: #2c9a4f;
+    --tjm-danger: #d04848;
+    --tjm-warning: #d99022;
+    --tjm-bg: #f4f5f7;
     --tjm-card-bg: #ffffff;
-    --tjm-text: #1e293b;
-    --tjm-text-light: #64748b;
-    --tjm-border: #e2e8f0;
-    --tjm-radius: 8px;
-    --tjm-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+    --tjm-text: #1c2025;
+    --tjm-text-light: #5a6573;
+    --tjm-border: #e2e6ea;
+    --tjm-radius: 6px;
+    --tjm-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
 }
 
 /* Wrappers */
@@ -224,7 +226,7 @@
 .tjm-field input:focus, .tjm-field textarea:focus, .tjm-field select:focus {
     outline: none;
     border-color: var(--tjm-primary);
-    box-shadow: 0 0 0 3px rgba(26, 68, 128, 0.1);
+    box-shadow: 0 0 0 3px rgba(41, 133, 150, 0.15);
 }
 
 /* Login card */
