@@ -26,8 +26,8 @@ class IntegrationsPage extends \Tainacan\Pages
         $page_suffix = add_submenu_page(
             $this->tainacan_other_links_slug,
             __('Journal Manager — Integrations', 'tainacan-journal-manager'),
-            '<span class="icon">' . $this->get_svg_icon('link') . '</span>'
-                . '<span class="menu-text">' . __('TJM Integrations', 'tainacan-journal-manager') . '</span>',
+            '<span class="icon">' . $this->get_svg_icon('share') . '</span>'
+                . '<span class="menu-text">' . __('Journal Manager — Integrations', 'tainacan-journal-manager') . '</span>',
             'manage_options',
             $this->get_page_slug(),
             [&$this, 'render_page']

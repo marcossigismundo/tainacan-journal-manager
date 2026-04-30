@@ -34,8 +34,8 @@ class EmailTemplatesPage extends \Tainacan\Pages
         $page_suffix = add_submenu_page(
             $this->tainacan_other_links_slug,
             __('Journal Manager — Email templates', 'tainacan-journal-manager'),
-            '<span class="icon">' . $this->get_svg_icon('mail') . '</span>'
-                . '<span class="menu-text">' . __('TJM Email templates', 'tainacan-journal-manager') . '</span>',
+            '<span class="icon">' . $this->get_svg_icon('notifications') . '</span>'
+                . '<span class="menu-text">' . __('Journal Manager — Email templates', 'tainacan-journal-manager') . '</span>',
             'manage_options',
             $this->get_page_slug(),
             [&$this, 'render_page']

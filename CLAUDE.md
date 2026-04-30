@@ -9,14 +9,16 @@ Inspirado arquiteturalmente no plugin **Pontos de Memoria** (mesma instalacao,
 em `wp-content/plugins/pontos-de-memoria/`), mas com modelagem propria adequada
 ao dominio editorial cientifico.
 
-**Status**: 0.7.0 — Refatoracao da interface admin para integrar com
-o core do Tainacan. Tainacan agora e dependencia OBRIGATORIA (o plugin
-nao inicializa sem ele). Todas as 5 paginas admin (Dashboard, Settings,
-Integrations, Email Templates, Audit Log) extendem `\Tainacan\Pages` e
-ficam sob a sidebar do Tainacan. Menu proprio `tjm-main` removido;
-CPTs voltam ao menu nativo do WP. Paleta visual alinhada com Tainacan
-(turquesa #298596). Documentacao da refatoracao:
-https://tainacan.github.io/tainacan-wiki/#/dev/creating-tainacan-admin-pages
+**Status**: 0.7.1 — Refatoracao da interface admin para integrar com
+o core do Tainacan. Tainacan e dependencia OBRIGATORIA. Todas as
+paginas admin (Dashboard + 4 CPT redirectors + Settings, Integrations,
+Email Templates, Audit Log) extendem `\Tainacan\Pages` e ficam sob a
+sidebar do Tainacan. CPTs com `show_in_menu => false` — acesso via
+"redirector pages" (`Admin\Tainacan\Links\*`) que sao Tainacan-pages
+slug-friendly e fazem `wp_safe_redirect` em `load-{page_suffix}` para
+`edit.php?post_type=...`. Paleta turquesa #298596. Icones reais do
+Tainacan: `reports`, `repository`, `processes`, `approved`,
+`collection`, `settings`, `share`, `notifications`, `activities`.
 
 ## Arquitetura
 - **Namespace**: `TainacanJournalManager`
@@ -30,13 +32,23 @@ https://tainacan.github.io/tainacan-wiki/#/dev/creating-tainacan-admin-pages
 ### Paginas admin Tainacan-integradas (`src/Admin/Tainacan/`)
 Cada classe extende `\Tainacan\Pages` + trait `Singleton_Instance`:
 - `DashboardPage` (slug `tjm_dashboard`) — entry point sob
-  `tainacan_root_menu_slug`, posicao 8. Tambem registra **todos os 4
-  CPTs como submenus do mesmo menu Tainacan** (Journals, Submissions,
-  Reviews, Issues — via `add_submenu_page` apontando para
-  `edit.php?post_type=...`). Os CPTs tem `show_in_menu => false` para
-  nao aparecerem como menus separados — toda a experiencia editorial
-  acontece dentro do "Journal Manager" na sidebar do Tainacan.
-- `SettingsPage` (slug `tjm_settings`) — sob `tainacan_other_links_slug`
+  `tainacan_root_menu_slug`, posicao 8
+
+Os 4 CPTs ficam **sob o mesmo menu Tainacan** via `Admin\Tainacan\Links\*`
+(redirector pages). Cada um tem slug Tainacan-friendly (`tjm_*_link`) e
+no `load-{page_suffix}` faz `wp_safe_redirect` para
+`edit.php?post_type=...`. Padrao foi necessario porque a sidebar do
+Tainacan (em `class-tainacan-pages.php::render_navigation_menu`) gera
+links via `add_query_arg('page', $slug)` e nao suporta menu_slugs com
+URLs CPT — passar `'edit.php?post_type=foo'` resultaria em
+`?page=edit.php%3Fpost_type%3Dfoo` quebrado:
+- `Links\JournalsLinkPage` (slug `tjm_journals_link`, posicao 9)
+- `Links\SubmissionsLinkPage` (slug `tjm_submissions_link`, posicao 10)
+- `Links\ReviewsLinkPage` (slug `tjm_reviews_link`, posicao 11)
+- `Links\IssuesLinkPage` (slug `tjm_issues_link`, posicao 12)
+
+Configuracao sob `tainacan_other_links_slug`:
+- `SettingsPage` (slug `tjm_settings`)
 - `IntegrationsPage` (slug `tjm_integrations`)
 - `EmailTemplatesPage` (slug `tjm_email_templates`)
 - `AuditLogPage` (slug `tjm_audit_log`)

@@ -8,28 +8,21 @@ use TainacanJournalManager\Config;
 use TainacanJournalManager\Indicators\StatsService;
 
 /**
- * Tainacan-integrated landing page + central registrar of every TJM
- * admin entry under the Tainacan sidebar.
+ * Tainacan-integrated landing page for the Journal Manager.
  *
- * This single class owns all the menu items so the Tainacan menu has
- * exactly one section "Journal Manager" with the editorial workflow
- * inside, in the natural reading order:
- *
- *   1. Dashboard       (this page — overview & quick actions)
- *   2. Journals        (CPT — the publications)
- *   3. Submissions     (CPT — manuscripts in workflow)
- *   4. Reviews         (CPT — peer reviews)
- *   5. Issues          (CPT — volumes / numbers / dossiers)
- *
- * The 4 admin-config pages (Settings, Integrations, Email Templates,
- * Audit Log) live separately under Tainacan's "Other links" group.
+ * The 4 CPTs (Journals, Submissions, Reviews, Issues) are registered as
+ * separate Tainacan-style "redirect pages" under
+ * `src/Admin/Tainacan/Links/` so the Tainacan navigation sidebar can
+ * render proper `?page=tjm_*_link` URLs (Tainacan's PHP nav builder
+ * doesn't support raw `edit.php?post_type=...` URLs as menu slugs and
+ * mangles them via `add_query_arg('page', $slug)`). Each link page just
+ * does an early `wp_safe_redirect` to the native CPT admin screen.
  */
 class DashboardPage extends \Tainacan\Pages
 {
     use \Tainacan\Traits\Singleton_Instance;
 
-    /** Position of the very first item we register inside the Tainacan menu. */
-    private const POSITION_BASE = 8;
+    private const POSITION = 8;
 
     protected function get_page_slug(): string
     {
@@ -38,86 +31,22 @@ class DashboardPage extends \Tainacan\Pages
 
     public function add_admin_menu(): void
     {
-        // 1) Dashboard (this class) — entry point
         $page_suffix = add_submenu_page(
             $this->tainacan_root_menu_slug,
             __('Journal Manager', 'tainacan-journal-manager'),
-            '<span class="icon">' . $this->get_svg_icon('book') . '</span>'
+            '<span class="icon">' . $this->get_svg_icon('reports') . '</span>'
                 . '<span class="menu-text">' . __('Journal Manager', 'tainacan-journal-manager') . '</span>',
             'read',
             $this->get_page_slug(),
             [&$this, 'render_page'],
-            self::POSITION_BASE
+            self::POSITION
         );
         add_action('load-' . $page_suffix, [&$this, 'load_page']);
-
-        // 2-5) The four CPTs as submenus of the Tainacan root menu, so the
-        //      whole editorial workflow lives in one place.
-        $this->register_cpt_submenu(
-            __('Journals', 'tainacan-journal-manager'),
-            'book',
-            Config::CPT_JOURNAL,
-            'edit_pages'
-        );
-        $this->register_cpt_submenu(
-            __('Submissions', 'tainacan-journal-manager'),
-            'edit',
-            Config::CPT_SUBMISSION,
-            'edit_pages'
-        );
-        $this->register_cpt_submenu(
-            __('Reviews', 'tainacan-journal-manager'),
-            'comment',
-            Config::CPT_REVIEW,
-            'edit_pages'
-        );
-        $this->register_cpt_submenu(
-            __('Issues', 'tainacan-journal-manager'),
-            'archive',
-            Config::CPT_ISSUE,
-            'edit_pages'
-        );
     }
 
     public function admin_enqueue_css(): void
     {
         wp_enqueue_style('tjm-tainacan-admin', TJM_URL . 'assets/css/admin-tainacan.css', [], TJM_VERSION);
-    }
-
-    /**
-     * Add a CPT list page (`edit.php?post_type=...`) as a submenu of the
-     * Tainacan root menu. Uses an `edit.php` URL as the menu_slug so the
-     * native CPT admin handles the actual rendering — we just slot it
-     * into the Tainacan sidebar at a stable position.
-     */
-    private function register_cpt_submenu(string $label, string $icon, string $post_type, string $capability): void
-    {
-        // Try Tainacan's icon set first; if not defined for this name the
-        // method silently returns empty, in which case we fall back to a
-        // dashicon for visibility.
-        $svg = $this->get_svg_icon($icon);
-        $icon_html = $svg !== ''
-            ? '<span class="icon">' . $svg . '</span>'
-            : '<span class="icon dashicons dashicons-' . esc_attr($this->fallback_dashicon($icon)) . '"></span>';
-
-        add_submenu_page(
-            $this->tainacan_root_menu_slug,
-            $label,
-            $icon_html . '<span class="menu-text">' . esc_html($label) . '</span>',
-            $capability,
-            'edit.php?post_type=' . $post_type
-        );
-    }
-
-    private function fallback_dashicon(string $name): string
-    {
-        return match ($name) {
-            'book'    => 'book-alt',
-            'edit'    => 'edit',
-            'comment' => 'admin-comments',
-            'archive' => 'archive',
-            default   => 'admin-generic',
-        };
     }
 
     public function render_page_content(): void

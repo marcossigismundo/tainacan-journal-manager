@@ -23,8 +23,8 @@ class AuditLogPage extends \Tainacan\Pages
         $page_suffix = add_submenu_page(
             $this->tainacan_other_links_slug,
             __('Journal Manager — Audit log', 'tainacan-journal-manager'),
-            '<span class="icon">' . $this->get_svg_icon('list') . '</span>'
-                . '<span class="menu-text">' . __('TJM Audit log', 'tainacan-journal-manager') . '</span>',
+            '<span class="icon">' . $this->get_svg_icon('activities') . '</span>'
+                . '<span class="menu-text">' . __('Journal Manager — Audit log', 'tainacan-journal-manager') . '</span>',
             'manage_options',
             $this->get_page_slug(),
             [&$this, 'render_page']

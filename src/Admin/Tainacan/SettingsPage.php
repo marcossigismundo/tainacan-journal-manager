@@ -29,7 +29,7 @@ class SettingsPage extends \Tainacan\Pages
             $this->tainacan_other_links_slug,
             __('Journal Manager — Settings', 'tainacan-journal-manager'),
             '<span class="icon">' . $this->get_svg_icon('settings') . '</span>'
-                . '<span class="menu-text">' . __('TJM Settings', 'tainacan-journal-manager') . '</span>',
+                . '<span class="menu-text">' . __('Journal Manager — Settings', 'tainacan-journal-manager') . '</span>',
             'manage_options',
             $this->get_page_slug(),
             [&$this, 'render_page']

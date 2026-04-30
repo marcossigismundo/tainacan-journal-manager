@@ -138,10 +138,25 @@ final class Plugin
     /**
      * Instantiate every Tainacan-integrated admin page singleton.
      * Each call also registers the page's hooks (admin_menu etc.).
+     *
+     * Order matters because each call adds a row to WP's $submenu and
+     * Tainacan's nav iterates that array. We register the Dashboard
+     * first (the entry point), then the 4 CPT redirector pages so the
+     * editorial workflow order shows in the sidebar (Journals →
+     * Submissions → Reviews → Issues), and finally the 4 admin-config
+     * pages under Tainacan's "Other links" group.
      */
     private function boot_tainacan_pages(): void
     {
         \TainacanJournalManager\Admin\Tainacan\DashboardPage::get_instance();
+
+        // CPT shortcuts (each redirects to edit.php?post_type=...)
+        \TainacanJournalManager\Admin\Tainacan\Links\JournalsLinkPage::get_instance();
+        \TainacanJournalManager\Admin\Tainacan\Links\SubmissionsLinkPage::get_instance();
+        \TainacanJournalManager\Admin\Tainacan\Links\ReviewsLinkPage::get_instance();
+        \TainacanJournalManager\Admin\Tainacan\Links\IssuesLinkPage::get_instance();
+
+        // Configuration pages (Other links group)
         \TainacanJournalManager\Admin\Tainacan\SettingsPage::get_instance();
         \TainacanJournalManager\Admin\Tainacan\IntegrationsPage::get_instance();
         \TainacanJournalManager\Admin\Tainacan\EmailTemplatesPage::get_instance();
