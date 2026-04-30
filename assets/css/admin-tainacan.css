@@ -47,6 +47,22 @@
     font-weight: 600;
 }
 
+/* Major sections in the dashboard (Overview, Needs attention, etc.) */
+.tjm-tainacan-page .tjm-tn-section {
+    margin-bottom: 28px;
+}
+
+.tjm-tainacan-page .tjm-tn-section-heading {
+    margin: 0 0 14px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--tjm-tn-border);
+    color: var(--tjm-tn-text);
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+}
+
 /* Dashboard cards */
 .tjm-tainacan-page .tjm-tn-cards {
     display: grid;
@@ -89,6 +105,131 @@
     color: var(--tjm-tn-text-muted);
     text-transform: uppercase;
     letter-spacing: 0.5px;
+}
+
+.tjm-tainacan-page .tjm-tn-card--success { border-left-color: #2c9a4f; }
+.tjm-tainacan-page .tjm-tn-card--success .tjm-tn-card-num { color: #1f7a3c; }
+.tjm-tainacan-page .tjm-tn-card--accent  { border-left-color: #d99022; }
+.tjm-tainacan-page .tjm-tn-card--accent  .tjm-tn-card-num { color: #b07015; }
+
+/* Needs-attention queue --------------------------------------------- */
+.tjm-tainacan-page .tjm-tn-queue {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 12px;
+}
+
+.tjm-tainacan-page .tjm-tn-queue-item {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    padding: 14px 16px;
+    background: var(--tjm-tn-card-bg);
+    border: 1px solid var(--tjm-tn-border);
+    border-radius: var(--tjm-tn-radius);
+    box-shadow: var(--tjm-tn-shadow);
+    text-decoration: none;
+    color: inherit;
+    transition: transform .12s, box-shadow .12s, border-color .12s;
+}
+
+.tjm-tainacan-page .tjm-tn-queue-item:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(41, 133, 150, 0.15);
+    border-color: var(--tjm-tn-primary);
+}
+
+.tjm-tainacan-page .tjm-tn-queue-item.is-empty {
+    opacity: 0.55;
+}
+
+.tjm-tainacan-page .tjm-tn-queue-count {
+    flex: 0 0 auto;
+    min-width: 48px;
+    height: 48px;
+    line-height: 48px;
+    padding: 0 12px;
+    text-align: center;
+    background: var(--tjm-tn-primary);
+    color: #fff;
+    font-size: 22px;
+    font-weight: 700;
+    border-radius: 6px;
+}
+
+.tjm-tainacan-page .tjm-tn-queue-item--warning .tjm-tn-queue-count {
+    background: #d99022;
+}
+
+.tjm-tainacan-page .tjm-tn-queue-item.is-empty .tjm-tn-queue-count {
+    background: var(--tjm-tn-text-muted);
+}
+
+.tjm-tainacan-page .tjm-tn-queue-body {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.35;
+}
+
+.tjm-tainacan-page .tjm-tn-queue-body strong {
+    font-size: 14px;
+    color: var(--tjm-tn-text);
+}
+
+.tjm-tainacan-page .tjm-tn-queue-desc {
+    margin-top: 2px;
+    font-size: 12px;
+    color: var(--tjm-tn-text-muted);
+}
+
+/* Quick actions ----------------------------------------------------- */
+.tjm-tainacan-page .tjm-tn-actions {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 12px;
+}
+
+.tjm-tainacan-page .tjm-tn-action {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 14px 18px;
+    background: var(--tjm-tn-card-bg);
+    border: 1px solid var(--tjm-tn-border);
+    border-left: 3px solid var(--tjm-tn-primary);
+    border-radius: var(--tjm-tn-radius);
+    box-shadow: var(--tjm-tn-shadow);
+    text-decoration: none;
+    color: inherit;
+    transition: transform .12s, box-shadow .12s;
+}
+
+.tjm-tainacan-page .tjm-tn-action:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(41, 133, 150, 0.15);
+    border-left-color: var(--tjm-tn-primary-dark);
+}
+
+.tjm-tainacan-page .tjm-tn-action strong {
+    color: var(--tjm-tn-primary-dark);
+    font-size: 14px;
+}
+
+.tjm-tainacan-page .tjm-tn-action span {
+    font-size: 12px;
+    color: var(--tjm-tn-text-muted);
+}
+
+/* Configuration grid heading --------------------------------------- */
+.tjm-tainacan-page .tjm-tn-block h3 {
+    margin: 0 0 10px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--tjm-tn-border);
+    color: var(--tjm-tn-primary-dark);
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
 }
 
 /* 3-column blocks (dashboard "configuration", "workflow", etc.) */

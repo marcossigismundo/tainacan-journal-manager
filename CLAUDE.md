@@ -29,7 +29,13 @@ https://tainacan.github.io/tainacan-wiki/#/dev/creating-tainacan-admin-pages
 
 ### Paginas admin Tainacan-integradas (`src/Admin/Tainacan/`)
 Cada classe extende `\Tainacan\Pages` + trait `Singleton_Instance`:
-- `DashboardPage` (slug `tjm_dashboard`) — landing sob `tainacan_root_menu_slug`, posicao 8
+- `DashboardPage` (slug `tjm_dashboard`) — entry point sob
+  `tainacan_root_menu_slug`, posicao 8. Tambem registra **todos os 4
+  CPTs como submenus do mesmo menu Tainacan** (Journals, Submissions,
+  Reviews, Issues — via `add_submenu_page` apontando para
+  `edit.php?post_type=...`). Os CPTs tem `show_in_menu => false` para
+  nao aparecerem como menus separados — toda a experiencia editorial
+  acontece dentro do "Journal Manager" na sidebar do Tainacan.
 - `SettingsPage` (slug `tjm_settings`) — sob `tainacan_other_links_slug`
 - `IntegrationsPage` (slug `tjm_integrations`)
 - `EmailTemplatesPage` (slug `tjm_email_templates`)
@@ -39,6 +45,19 @@ Cada classe extende `\Tainacan\Pages` + trait `Singleton_Instance`:
 renderizacao). CSS dedicado em `assets/css/admin-tainacan.css` usa
 classes `tainacan-page-container-content`, `tainacan-fixed-subheader`,
 `tainacan-page-title` para integrar visualmente com o Tainacan.
+
+### Dashboard como command center
+[`Admin\Tainacan\DashboardPage::render_page_content`] organiza a tela em
+4 secoes claras:
+1. **Overview** — cards clicaveis (Submissions, Published, Reviews,
+   Journals, Issues, Acceptance%)
+2. **Needs your attention** — fila de itens pendentes por estagio
+   (Submitted -> Triage, Review, Decision, Copyediting, Production)
+   com contadores grandes e links diretos para a listagem filtrada
+3. **Quick actions** — atalhos para criar Journal, Issue, abrir
+   Editorial Report e OAI-PMH
+4. **Configuration** — atalhos para Settings, Integrations, Email
+   Templates, Audit Log
 
 ### Fluxo editorial (substitui o fluxo do Pontos de Memoria)
 
