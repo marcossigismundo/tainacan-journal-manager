@@ -232,6 +232,168 @@
     letter-spacing: 0.4px;
 }
 
+/* ===================================================================
+   Entity pages — Tainacan-integrated CRUD for Journals / Submissions
+   / Reviews / Issues. Shared chrome lives here; each page just renders
+   its own list / view / form inside .tjm-entity-page.
+   =================================================================== */
+
+.tjm-tainacan-page.tjm-entity-page .tainacan-fixed-subheader {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.tjm-tainacan-page.tjm-entity-page .tainacan-fixed-subheader .page-title-action {
+    display: inline-block;
+    padding: 6px 14px;
+    background: var(--tjm-tn-primary);
+    color: #fff;
+    border-radius: var(--tjm-tn-radius);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    transition: background .12s;
+    border: 1px solid var(--tjm-tn-primary-dark);
+}
+
+.tjm-tainacan-page.tjm-entity-page .tainacan-fixed-subheader .page-title-action:hover {
+    background: var(--tjm-tn-primary-dark);
+    color: #fff;
+}
+
+/* Status filter chips -------------------------------------------- */
+.tjm-tainacan-page .tjm-tn-status-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 0 0 16px;
+    padding: 12px 14px;
+    background: var(--tjm-tn-card-bg);
+    border: 1px solid var(--tjm-tn-border);
+    border-radius: var(--tjm-tn-radius);
+}
+
+.tjm-tainacan-page .tjm-tn-status-chip {
+    display: inline-block;
+    padding: 4px 10px;
+    background: #f1f5f9;
+    color: var(--tjm-tn-text-muted);
+    border: 1px solid var(--tjm-tn-border);
+    border-radius: 12px;
+    font-size: 12px;
+    text-decoration: none;
+    transition: all .12s;
+}
+
+.tjm-tainacan-page .tjm-tn-status-chip:hover {
+    background: #e2e8f0;
+    color: var(--tjm-tn-text);
+}
+
+.tjm-tainacan-page .tjm-tn-status-chip.is-active {
+    background: var(--tjm-tn-primary);
+    color: #fff;
+    border-color: var(--tjm-tn-primary-dark);
+    font-weight: 600;
+}
+
+/* Status pills shown inside table rows / detail pages */
+.tjm-tainacan-page .tjm-tn-pill {
+    display: inline-block;
+    padding: 2px 8px;
+    background: #e2e8f0;
+    color: #334155;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    line-height: 1.5;
+}
+
+.tjm-tainacan-page .tjm-tn-pill--published,
+.tjm-tainacan-page .tjm-tn-pill--publish    { background: #d1fae5; color: #065f46; }
+.tjm-tainacan-page .tjm-tn-pill--rejected,
+.tjm-tainacan-page .tjm-tn-pill--withdrawn  { background: #fee2e2; color: #991b1b; }
+.tjm-tainacan-page .tjm-tn-pill--revision   { background: #fef3c7; color: #92400e; }
+.tjm-tainacan-page .tjm-tn-pill--decision   { background: #fde68a; color: #854d0e; }
+.tjm-tainacan-page .tjm-tn-pill--draft      { background: #f1f5f9; color: #475569; }
+.tjm-tainacan-page .tjm-tn-pill--submitted,
+.tjm-tainacan-page .tjm-tn-pill--triage,
+.tjm-tainacan-page .tjm-tn-pill--review,
+.tjm-tainacan-page .tjm-tn-pill--copyediting,
+.tjm-tainacan-page .tjm-tn-pill--production { background: #dbeafe; color: #1e40af; }
+
+/* Tables — give widefat the same look as the rest of TJM admin */
+.tjm-tainacan-page .tjm-tn-table {
+    margin-top: 8px;
+    background: var(--tjm-tn-card-bg);
+    border: 1px solid var(--tjm-tn-border);
+    border-radius: var(--tjm-tn-radius);
+    overflow: hidden;
+    box-shadow: var(--tjm-tn-shadow);
+}
+
+.tjm-tainacan-page .tjm-tn-table th {
+    background: #f8fafc;
+    color: var(--tjm-tn-text-muted);
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+}
+
+.tjm-tainacan-page .tjm-tn-table td {
+    vertical-align: middle;
+}
+
+.tjm-tainacan-page .tjm-tn-table .button-small {
+    margin-right: 4px;
+}
+
+/* History list (timeline-ish) ------------------------------------- */
+.tjm-tainacan-page .tjm-tn-history {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.tjm-tainacan-page .tjm-tn-history li {
+    padding: 8px 0;
+    border-bottom: 1px solid var(--tjm-tn-border);
+    font-size: 13px;
+}
+
+.tjm-tainacan-page .tjm-tn-history li:last-child {
+    border-bottom: none;
+}
+
+.tjm-tainacan-page .tjm-tn-history code {
+    display: inline-block;
+    min-width: 140px;
+    color: var(--tjm-tn-text-muted);
+    background: transparent;
+    font-size: 12px;
+}
+
+/* Long-form entity blocks (used in the view + form layouts) */
+.tjm-tainacan-page.tjm-entity-page .tjm-tn-block h3 {
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: 14px;
+    color: var(--tjm-tn-primary-dark);
+}
+
+.tjm-tainacan-page.tjm-entity-page .tjm-tn-block h4 {
+    margin: 12px 0 4px;
+    font-size: 12px;
+    color: var(--tjm-tn-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+}
+
 /* 3-column blocks (dashboard "configuration", "workflow", etc.) */
 .tjm-tainacan-page .tjm-tn-grid {
     display: grid;

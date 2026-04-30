@@ -9,16 +9,24 @@ Inspirado arquiteturalmente no plugin **Pontos de Memoria** (mesma instalacao,
 em `wp-content/plugins/pontos-de-memoria/`), mas com modelagem propria adequada
 ao dominio editorial cientifico.
 
-**Status**: 0.7.1 — Refatoracao da interface admin para integrar com
-o core do Tainacan. Tainacan e dependencia OBRIGATORIA. Todas as
-paginas admin (Dashboard + 4 CPT redirectors + Settings, Integrations,
-Email Templates, Audit Log) extendem `\Tainacan\Pages` e ficam sob a
-sidebar do Tainacan. CPTs com `show_in_menu => false` — acesso via
-"redirector pages" (`Admin\Tainacan\Links\*`) que sao Tainacan-pages
-slug-friendly e fazem `wp_safe_redirect` em `load-{page_suffix}` para
-`edit.php?post_type=...`. Paleta turquesa #298596. Icones reais do
-Tainacan: `reports`, `repository`, `processes`, `approved`,
-`collection`, `settings`, `share`, `notifications`, `activities`.
+**Status**: 0.8.0 — Tudo o gerenciamento de entidades migrou para
+**paginas Tainacan-integradas reais** em `Admin/Tainacan/Entities/*`,
+substituindo o editor Gutenberg do WP. Editor nunca sai do shell do
+Tainacan: lista, formulario de criacao/edicao e detalhe sao todos
+renderizados dentro de `tainacan-page-container-content`.
+
+  - **Journals** e **Issues**: full CRUD (lista + criar + editar + detalhe)
+  - **Submissions** e **Reviews**: lista + detalhe read-only
+    (edicao real ocorre via portais publicos de autor/avaliador, onde
+    a logica de workflow se aplica)
+  - Roteamento por `?action=list|view|edit|new` no mesmo slug
+  - Saves via `admin-post.php` com nonces
+
+Removidas as redirector pages (`Admin\Tainacan\Links\*`) e a classe
+`CptLinkPage` — substituidas pelas Entity pages. Tainacan continua
+dependencia obrigatoria; paleta turquesa #298596; icones reais do
+Tainacan core (`reports`, `repository`, `processes`, `approved`,
+`collection`, `settings`, `share`, `notifications`, `activities`).
 
 ## Arquitetura
 - **Namespace**: `TainacanJournalManager`
@@ -31,21 +39,41 @@ Tainacan: `reports`, `repository`, `processes`, `approved`,
 
 ### Paginas admin Tainacan-integradas (`src/Admin/Tainacan/`)
 Cada classe extende `\Tainacan\Pages` + trait `Singleton_Instance`:
-- `DashboardPage` (slug `tjm_dashboard`) — entry point sob
-  `tainacan_root_menu_slug`, posicao 8
+- `DashboardPage` (slug `tjm_dashboard`, posicao 8) — entry point sob
+  `tainacan_root_menu_slug`. Renderiza KPIs, fila "Needs your attention",
+  Quick actions e atalhos para Configuration
 
-Os 4 CPTs ficam **sob o mesmo menu Tainacan** via `Admin\Tainacan\Links\*`
-(redirector pages). Cada um tem slug Tainacan-friendly (`tjm_*_link`) e
-no `load-{page_suffix}` faz `wp_safe_redirect` para
-`edit.php?post_type=...`. Padrao foi necessario porque a sidebar do
-Tainacan (em `class-tainacan-pages.php::render_navigation_menu`) gera
-links via `add_query_arg('page', $slug)` e nao suporta menu_slugs com
-URLs CPT — passar `'edit.php?post_type=foo'` resultaria em
-`?page=edit.php%3Fpost_type%3Dfoo` quebrado:
-- `Links\JournalsLinkPage` (slug `tjm_journals_link`, posicao 9)
-- `Links\SubmissionsLinkPage` (slug `tjm_submissions_link`, posicao 10)
-- `Links\ReviewsLinkPage` (slug `tjm_reviews_link`, posicao 11)
-- `Links\IssuesLinkPage` (slug `tjm_issues_link`, posicao 12)
+### Entity pages — gerenciamento dentro do Tainacan
+`Admin\Tainacan\Entities\AbstractEntityPage` define um padrao comum:
+roteamento por `?action=list|view|edit|new&id=N`, formulario via
+`admin-post.php` com nonces, mensagens flash via `?msg=`, helpers
+`url_for()` / `redirect_after_save()`.
+
+Cada subclasse declara: icone Tainacan, label singular/plural,
+posicao no menu, se suporta editing, e implementa `render_list()`,
+`render_view($id)`, opcionalmente `render_form($id)` e os handlers
+`handle_save()` / `handle_delete()`.
+
+- `Entities\JournalsPage`     (slug `tjm_journals_page`,    posicao 9, **CRUD**)
+  Form configura: title, status, about, ISSN, e-ISSN, license, review
+  type (open/blind/double_blind/editorial), parecer form sections.
+  Provisiona colecao Tainacan idempotentemente via
+  `CollectionProvisioner::provision_for_journal()` no save
+- `Entities\SubmissionsPage`  (slug `tjm_submissions_page`, posicao 10, **read-only**)
+  Lista filtravel por status; detalhe mostra autor, manuscrito,
+  reviewers, history, decisions. Botao "Open in editorial portal"
+  leva ao `[tjm_editorial_dashboard]?submission=N` para acoes
+- `Entities\ReviewsPage`      (slug `tjm_reviews_page`,     posicao 11, **read-only**)
+  Lista filtravel por review_status; detalhe mostra timeline
+  (invited / accepted / submitted), recommendation, comentarios ao
+  autor / editor, secoes do parecer
+- `Entities\IssuesPage`       (slug `tjm_issues_page`,      posicao 12, **CRUD**)
+  Form configura: title, journal, volume/number/year, type, published.
+  Tela de edicao tambem inclui checkboxes para atribuir/desatribuir
+  artigos (lista candidatos da mesma revista em production+published)
+
+CPTs ficam com `show_in_menu => false` — acesso unico pelas Entity
+pages dentro do Tainacan.
 
 Configuracao sob `tainacan_other_links_slug`:
 - `SettingsPage` (slug `tjm_settings`)

@@ -150,11 +150,13 @@ final class Plugin
     {
         \TainacanJournalManager\Admin\Tainacan\DashboardPage::get_instance();
 
-        // CPT shortcuts (each redirects to edit.php?post_type=...)
-        \TainacanJournalManager\Admin\Tainacan\Links\JournalsLinkPage::get_instance();
-        \TainacanJournalManager\Admin\Tainacan\Links\SubmissionsLinkPage::get_instance();
-        \TainacanJournalManager\Admin\Tainacan\Links\ReviewsLinkPage::get_instance();
-        \TainacanJournalManager\Admin\Tainacan\Links\IssuesLinkPage::get_instance();
+        // Entity management — full CRUD for Journals/Issues, read-only
+        // for Submissions/Reviews. All rendered inside the Tainacan
+        // shell so editors never bounce out to the WP CPT screens.
+        \TainacanJournalManager\Admin\Tainacan\Entities\JournalsPage::get_instance();
+        \TainacanJournalManager\Admin\Tainacan\Entities\SubmissionsPage::get_instance();
+        \TainacanJournalManager\Admin\Tainacan\Entities\ReviewsPage::get_instance();
+        \TainacanJournalManager\Admin\Tainacan\Entities\IssuesPage::get_instance();
 
         // Configuration pages (Other links group)
         \TainacanJournalManager\Admin\Tainacan\SettingsPage::get_instance();
