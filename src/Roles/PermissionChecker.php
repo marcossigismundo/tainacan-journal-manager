@@ -14,9 +14,17 @@ final class PermissionChecker
 {
     public static function can_submit(int $user_id, int $journal_id): bool
     {
-        return $user_id > 0
-            && (PluginRole::has_role($user_id, PluginRole::AUTHOR)
-                || PluginRole::has_journal_role($user_id, $journal_id, PluginRole::AUTHOR));
+        if ($user_id <= 0) {
+            return false;
+        }
+        // WP super-admin and institutional admin can always submit (mirrors
+        // AuthorPortal::render and ensure_owned_submission, which already
+        // treat admins as authors for the purposes of the wizard).
+        if (user_can($user_id, 'manage_options') || PluginRole::is_admin_institutional($user_id)) {
+            return true;
+        }
+        return PluginRole::has_role($user_id, PluginRole::AUTHOR)
+            || PluginRole::has_journal_role($user_id, $journal_id, PluginRole::AUTHOR);
     }
 
     public static function can_view_submission(int $user_id, int $submission_id): bool
