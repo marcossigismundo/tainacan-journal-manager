@@ -163,6 +163,7 @@ final class Plugin
         \TainacanJournalManager\Admin\Tainacan\IntegrationsPage::get_instance();
         \TainacanJournalManager\Admin\Tainacan\EmailTemplatesPage::get_instance();
         \TainacanJournalManager\Admin\Tainacan\AuditLogPage::get_instance();
+        \TainacanJournalManager\Admin\Tainacan\TestDataPage::get_instance();
     }
 
     public function enqueue_frontend_assets(): void
