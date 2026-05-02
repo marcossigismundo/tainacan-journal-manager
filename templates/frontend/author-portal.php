@@ -7,7 +7,7 @@ use TainacanJournalManager\Config;
 <div class="tjm-portal">
     <header class="tjm-portal-header">
         <h2><?php esc_html_e('My Submissions', 'tainacan-journal-manager'); ?></h2>
-        <a href="#" class="tjm-btn tjm-btn--primary tjm-new-submission" data-action="new"><?php esc_html_e('+ New Submission', 'tainacan-journal-manager'); ?></a>
+        <a href="?new=1" class="tjm-btn tjm-btn--primary tjm-new-submission"><?php esc_html_e('+ New Submission', 'tainacan-journal-manager'); ?></a>
     </header>
 
     <?php if (empty($submissions)) : ?>
